@@ -94,6 +94,9 @@ export default defineConfig({
   html: { template: './index.html' },
   server: {
     compress: true,
+    host: '0.0.0.0',
+    port: 5000,
+    allowedHosts: 'all',
   },
   dev: { hmr: true },
   tools: {
