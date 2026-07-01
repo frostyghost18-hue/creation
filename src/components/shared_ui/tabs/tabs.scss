@@ -109,7 +109,7 @@
             position: relative;
 
             &:after {
-                border-bottom: 2px solid var(--brand-red-coral);
+                border-bottom: 2px solid #f7c53b;
                 content: '';
                 position: absolute;
                 left: 0;
@@ -142,7 +142,7 @@
 
         /* rtl:end:ignore */
         height: 2px;
-        background: var(--brand-red-coral);
+        background: #f7c53b;
         transition: all ease-in-out 0.3s;
 
         &--top {
