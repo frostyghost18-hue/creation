@@ -125,6 +125,22 @@ const FREE_BOTS = [
         category: 'Normal' as BotCategory,
         difficulty: 'Intermediate',
     },
+    {
+        id: 'frosty_over_2_v1',
+        xml_file: 'frosty_over_2_v1',
+        name: 'Frosty Over 2 V1',
+        description: 'A digit-over-2 prediction strategy with martingale recovery and configurable profit and loss targets, fully automated.',
+        category: 'Automated' as BotCategory,
+        difficulty: 'Intermediate',
+    },
+    {
+        id: 'frosty_under_7_v1',
+        xml_file: 'frosty_under_7_v1',
+        name: 'Frosty Under 7 V1',
+        description: 'A digit-under-7 prediction strategy with martingale recovery and configurable profit and loss targets, fully automated.',
+        category: 'Automated' as BotCategory,
+        difficulty: 'Intermediate',
+    },
 ];
 
 const DIFFICULTY_COLORS: Record<string, string> = {
