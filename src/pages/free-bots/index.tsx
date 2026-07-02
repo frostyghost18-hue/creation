@@ -61,6 +61,30 @@ const FREE_BOTS = [
         category: 'Advanced Bots' as BotCategory,
         difficulty: 'Advanced',
     },
+    {
+        id: 'dominator_v2',
+        xml_file: 'dominator_v2',
+        name: 'Dominator V2',
+        description: 'A digit over/under strategy with recovery-digit martingale, take-profit and stop-loss controls.',
+        category: 'Premium' as BotCategory,
+        difficulty: 'Advanced',
+    },
+    {
+        id: 'frosty_money_maker',
+        xml_file: 'frosty_money_maker',
+        name: 'Frosty Money Maker (Under)',
+        description: 'A digit-under martingale strategy tuned for consistent recovery with configurable profit and loss targets.',
+        category: 'Premium' as BotCategory,
+        difficulty: 'Advanced',
+    },
+    {
+        id: 'frosty_money_maker_v2',
+        xml_file: 'frosty_money_maker_v2',
+        name: 'Frosty Money Maker V2 (Over)',
+        description: 'A digit-over martingale strategy variant with recovery logic and configurable profit and loss targets.',
+        category: 'Premium' as BotCategory,
+        difficulty: 'Advanced',
+    },
 ];
 
 const DIFFICULTY_COLORS: Record<string, string> = {
