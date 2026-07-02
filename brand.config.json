@@ -86,10 +86,10 @@
         },
         "hostname": {
             "production": {
-                "com": "bot.yourbrand.com"
+                "com": "frostydbot.site"
             },
             "staging": {
-                "com": "staging-bot.yourbrand.com"
+                "com": "staging.frostydbot.site"
             }
         },
         "auth2_url": {
