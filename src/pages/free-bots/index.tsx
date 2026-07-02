@@ -230,6 +230,9 @@ const FreeBots = observer(() => {
                     file_name: bot.name,
                     from: save_types.LOCAL,
                     show_snackbar: true,
+                    drop_event: undefined,
+                    strategy_id: undefined,
+                    showIncompatibleStrategyDialog: undefined,
                 });
             } else {
                 setTimeout(async () => {
@@ -241,6 +244,9 @@ const FreeBots = observer(() => {
                             file_name: bot.name,
                             from: save_types.LOCAL,
                             show_snackbar: true,
+                            drop_event: undefined,
+                            strategy_id: undefined,
+                            showIncompatibleStrategyDialog: undefined,
                         });
                     }
                 }, 800);

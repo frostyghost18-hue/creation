@@ -283,6 +283,44 @@
         animation: auth-spinner-rotate 0.8s linear infinite;
     }
 
+    /* ---------- API Token button ---------- */
+    &__api-token-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+        padding: 0.5rem 1.2rem;
+        margin-inline-end: 0.8rem;
+        border-radius: 16px;
+        border: 1.5px solid rgb(247 197 59 / 50%);
+        background: linear-gradient(
+            90deg,
+            rgb(247 197 59 / 10%) 0%,
+            rgb(247 197 59 / 18%) 50%,
+            rgb(247 197 59 / 10%) 100%
+        );
+        color: #f7c53b;
+        font-size: 1.2rem;
+        font-weight: 700;
+        cursor: pointer;
+        white-space: nowrap;
+        transition:
+            background 0.2s,
+            border-color 0.2s,
+            box-shadow 0.2s,
+            transform 0.15s;
+
+        &:hover {
+            background: linear-gradient(
+                90deg,
+                rgb(247 197 59 / 22%) 0%,
+                rgb(247 197 59 / 32%) 50%,
+                rgb(247 197 59 / 22%) 100%
+            );
+            border-color: rgb(247 197 59 / 80%);
+            box-shadow: 0 0 10px rgb(247 197 59 / 25%);
+            transform: translateY(-1px);
+        }
+    }
 }
 
 .deriv-accordion--underline {

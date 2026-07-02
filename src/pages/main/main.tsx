@@ -36,6 +36,8 @@ import {
     LabelPairedPuzzlePieceTwoCaptionBoldIcon,
     LabelPairedCircleStarCaptionBoldIcon,
     LabelPairedMagnifyingGlassPlusCaptionRegularIcon,
+    LabelPairedCircleCaptionRegularIcon,
+    LabelPairedBarsCaptionRegularIcon,
 } from '@deriv/quill-icons/LabelPaired';
 import { LegacyGuide1pxIcon } from '@deriv/quill-icons/Legacy';
 import { Localize, localize } from '@deriv-com/translations';
@@ -82,7 +84,7 @@ const AppWrapper = observer(() => {
     const { clear } = summary_card;
     const { DASHBOARD, BOT_BUILDER } = DBOT_TABS;
     const init_render = React.useRef(true);
-    const hash = ['dashboard', 'bot_builder', 'free_bots', 'chart', 'analysis', 'tutorial'];
+    const hash = ['dashboard', 'bot_builder', 'free_bots', 'd_circles', 'analysis_tool', 'chart', 'analysis', 'tutorial'];
     const { isDesktop } = useDevice();
     const location = useLocation();
     const navigate = useNavigate();
@@ -423,6 +425,46 @@ const AppWrapper = observer(() => {
                                 id='id-free-bots'
                             >
                                 <FreeBots />
+                            </div>
+                            <div
+                                label={
+                                    <>
+                                        <LabelPairedCircleCaptionRegularIcon
+                                            height='24px'
+                                            width='24px'
+                                            fill='var(--text-general)'
+                                        />
+                                        <Localize i18n_default_text='D-Circles' />
+                                    </>
+                                }
+                                id='id-d-circles'
+                            >
+                                <iframe
+                                    src='https://frostydcircles.vercel.app/'
+                                    title='D-Circles'
+                                    style={{ width: '100%', height: '100%', border: 'none', display: 'block' }}
+                                    allow='clipboard-read; clipboard-write'
+                                />
+                            </div>
+                            <div
+                                label={
+                                    <>
+                                        <LabelPairedBarsCaptionRegularIcon
+                                            height='24px'
+                                            width='24px'
+                                            fill='var(--text-general)'
+                                        />
+                                        <Localize i18n_default_text='Analysis Tool' />
+                                    </>
+                                }
+                                id='id-analysis-tool'
+                            >
+                                <iframe
+                                    src='https://frostytraders.vercel.app/'
+                                    title='Analysis Tool'
+                                    style={{ width: '100%', height: '100%', border: 'none', display: 'block' }}
+                                    allow='clipboard-read; clipboard-write'
+                                />
                             </div>
                             <div
                                 label={

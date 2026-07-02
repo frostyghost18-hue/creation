@@ -13,4 +13,7 @@ export const clearAuthData = () => {
     localStorage.removeItem('accountsList');
     localStorage.removeItem('clientAccounts');
     localStorage.removeItem('callback_token');
+    // Direct API token auth keys
+    localStorage.removeItem('api_token_direct');
+    localStorage.removeItem('api_token_mode');
 };

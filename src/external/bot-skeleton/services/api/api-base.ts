@@ -258,6 +258,28 @@ class APIBase {
         this.account_id = getAccountId() || '';
         setIsAuthorizing(true);
 
+        // Direct API token mode — must call authorize() before any other API call
+        const directToken = localStorage.getItem('api_token_direct');
+        if (directToken) {
+            try {
+                const authResult = await (this.api as any).authorize(directToken);
+                if (authResult?.error) {
+                    console.error('[APIBase] Direct API token auth failed:', authResult.error);
+                    localStorage.removeItem('api_token_direct');
+                    localStorage.removeItem('api_token_mode');
+                    localStorage.removeItem('active_loginid');
+                    setIsAuthorizing(false);
+                    return;
+                }
+            } catch (e) {
+                console.error('[APIBase] Direct API token authorize error:', e);
+                localStorage.removeItem('api_token_direct');
+                localStorage.removeItem('api_token_mode');
+                setIsAuthorizing(false);
+                return;
+            }
+        }
+
         try {
             const { balance, error } = await this.api.balance();
 

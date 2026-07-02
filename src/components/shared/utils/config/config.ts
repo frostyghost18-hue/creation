@@ -72,6 +72,15 @@ const getDefaultServerURL = () => {
  */
 export const getSocketURL = async (): Promise<string> => {
     try {
+        // Direct API token mode — bypass OTP flow, use the standard Deriv WebSocket.
+        // Flag lives in sessionStorage (cleared on tab close) so it never survives beyond the session.
+        if (sessionStorage.getItem('api_token_mode') === '1') {
+            const appId = process.env.NEXT_PUBLIC_DERIV_APP_ID;
+            if (appId) {
+                return `wss://ws.derivws.com/websockets/v3?app_id=${appId}`;
+            }
+        }
+
         const authInfo = getAuthInfo();
         if (!authInfo || !authInfo.access_token) {
             return getDefaultServerURL();

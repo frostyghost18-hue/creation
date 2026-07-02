@@ -12,6 +12,7 @@ import { Localize } from '@deriv-com/translations';
 import { Header, useDevice, Wrapper } from '@deriv-com/ui';
 import { AppLogo } from '../app-logo';
 import AccountSwitcher from './account-switcher';
+import ApiTokenModal from './api-token-modal';
 import MenuItems from './menu-items';
 import MobileMenu from './mobile-menu';
 import './header.scss';
@@ -21,6 +22,7 @@ const AppHeader = observer(() => {
     const { isAuthorizing, activeLoginid, setIsAuthorizing, authData } = useApiBase();
     const { client } = useStore() ?? {};
     const [authTimeout, setAuthTimeout] = useState(false);
+    const [showApiTokenModal, setShowApiTokenModal] = useState(false);
     const is_account_regenerating = client?.is_account_regenerating || false;
 
     // Detect OAuth callback on mount (before App.tsx cleans up the URL).
@@ -175,6 +177,13 @@ const AppHeader = observer(() => {
                 const isAuthConfigured = Boolean(process.env.NEXT_PUBLIC_DERIV_APP_ID);
                 return (
                     <div className='auth-actions'>
+                        <button
+                            className='auth-actions__api-token-btn'
+                            onClick={() => setShowApiTokenModal(true)}
+                            title='Connect using a Deriv API token'
+                        >
+                            🔑&nbsp;<Localize i18n_default_text='API Token' />
+                        </button>
                         <Button tertiary disabled={!isAuthConfigured} onClick={handleLogin}>
                             <Localize i18n_default_text='Log in' />
                         </Button>
@@ -246,6 +255,9 @@ const AppHeader = observer(() => {
                     {renderAccountSection('right')}
                 </Wrapper>
             </Header>
+            {showApiTokenModal && (
+                <ApiTokenModal onClose={() => setShowApiTokenModal(false)} />
+            )}
         </>
     );
 });

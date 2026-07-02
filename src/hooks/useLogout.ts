@@ -31,6 +31,8 @@ export const useLogout = () => {
                 localStorage.removeItem('accountsList');
                 localStorage.removeItem('clientAccounts');
                 localStorage.removeItem('account_type');
+                localStorage.removeItem('api_token_direct');
+                localStorage.removeItem('api_token_mode');
             } catch (storageError) {
                 ErrorLogger.error('Logout', 'Failed to clear auth storage', storageError);
                 // Last resort: if targeted clearing fails, clear all storage

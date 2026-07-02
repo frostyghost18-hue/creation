@@ -458,3 +458,273 @@
         margin-inline-start: 0.4rem;
     }
 }
+
+/* ============================================================
+   GOLDEN FLASHY DASHBOARD THEME
+   ============================================================ */
+
+/* ── Keyframe animations ── */
+@keyframes gold-shimmer {
+    0%   { background-position: -200% center; }
+    100% { background-position:  200% center; }
+}
+
+@keyframes gold-pulse-glow {
+    0%, 100% { box-shadow: 0 0 8px 2px rgb(247 197 59 / 25%), 0 0 24px 4px rgb(247 197 59 / 10%); }
+    50%       { box-shadow: 0 0 16px 6px rgb(247 197 59 / 50%), 0 0 48px 12px rgb(247 197 59 / 20%); }
+}
+
+@keyframes gold-text-shine {
+    0%   { background-position: -300% center; }
+    100% { background-position:  300% center; }
+}
+
+@keyframes card-float {
+    0%, 100% { transform: translateY(0);    }
+    50%       { transform: translateY(-4px); }
+}
+
+@keyframes border-spin {
+    0%   { background-position: 0% 50%;   }
+    50%  { background-position: 100% 50%; }
+    100% { background-position: 0% 50%;   }
+}
+
+@keyframes sparkle-in {
+    0%   { opacity: 0; transform: scale(0.6) rotate(-10deg); }
+    60%  { opacity: 1; transform: scale(1.08) rotate(3deg);  }
+    100% { opacity: 1; transform: scale(1) rotate(0deg);     }
+}
+
+/* ── Dashboard content area background ── */
+.tab__dashboard__content {
+    background: radial-gradient(ellipse at 30% 20%, rgb(80 60 10 / 35%) 0%, transparent 55%),
+                radial-gradient(ellipse at 80% 80%, rgb(120 90 10 / 25%) 0%, transparent 50%),
+                var(--general-main-1) !important;
+    position: relative;
+
+    /* Subtle golden grid overlay */
+    &::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background-image:
+            linear-gradient(rgb(247 197 59 / 4%) 1px, transparent 1px),
+            linear-gradient(90deg, rgb(247 197 59 / 4%) 1px, transparent 1px);
+        background-size: 48px 48px;
+        pointer-events: none;
+        z-index: 0;
+    }
+
+    > * { position: relative; z-index: 1; }
+}
+
+/* ── Heading: "Load or build your bot" ── */
+.tab__dashboard__header {
+    .title {
+        background: linear-gradient(
+            90deg,
+            #b8860b 0%,
+            #f7c53b 25%,
+            #fffde4 50%,
+            #f7c53b 75%,
+            #b8860b 100%
+        );
+        background-size: 300% auto;
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        animation: gold-text-shine 4s linear infinite;
+        filter: drop-shadow(0 0 12px rgb(247 197 59 / 60%));
+        font-weight: 900 !important;
+        letter-spacing: 0.02em;
+    }
+
+    .subtitle {
+        color: rgb(247 197 59 / 75%) !important;
+        font-weight: 500;
+        text-shadow: 0 1px 8px rgb(247 197 59 / 20%);
+    }
+}
+
+/* ── Action card icon boxes ── */
+.tab__dashboard__table__images {
+    background: linear-gradient(
+        145deg,
+        rgb(30 24 5 / 90%) 0%,
+        rgb(50 38 5 / 80%) 100%
+    ) !important;
+    border: 1.5px solid rgb(247 197 59 / 35%) !important;
+    box-shadow:
+        0 0 0 1px rgb(247 197 59 / 10%) inset,
+        0 4px 20px rgb(0 0 0 / 40%),
+        0 0 12px rgb(247 197 59 / 10%);
+    border-radius: 1.2rem !important;
+    position: relative;
+    overflow: hidden;
+    transition:
+        transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
+        box-shadow 0.3s ease,
+        border-color 0.3s ease !important;
+
+    /* Shimmer sweep */
+    &::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+            105deg,
+            transparent 35%,
+            rgb(255 255 180 / 18%) 50%,
+            transparent 65%
+        );
+        background-size: 200% 100%;
+        animation: gold-shimmer 3s ease-in-out infinite;
+        pointer-events: none;
+        border-radius: inherit;
+    }
+
+    &:hover {
+        transform: translateY(-6px) scale(1.06) !important;
+        border-color: rgb(247 197 59 / 80%) !important;
+        box-shadow:
+            0 0 0 1px rgb(247 197 59 / 30%) inset,
+            0 8px 32px rgb(0 0 0 / 50%),
+            0 0 24px rgb(247 197 59 / 40%),
+            0 0 48px rgb(247 197 59 / 15%) !important;
+        cursor: pointer;
+        animation: gold-pulse-glow 1.5s ease-in-out infinite;
+    }
+
+    /* SVG icons — tint them golden */
+    svg {
+        filter: drop-shadow(0 0 6px rgb(247 197 59 / 50%)) saturate(0.4) sepia(1) saturate(3) hue-rotate(-5deg);
+        transition: filter 0.3s ease, transform 0.3s ease;
+    }
+
+    &:hover svg {
+        filter: drop-shadow(0 0 12px rgb(247 197 59 / 80%)) saturate(0.4) sepia(1) saturate(4) hue-rotate(-5deg) brightness(1.15);
+        transform: scale(1.1);
+    }
+}
+
+/* ── Card labels beneath the icons ── */
+.tab__dashboard__table__block {
+    .dc-text {
+        color: rgb(247 197 59 / 90%) !important;
+        font-weight: 600 !important;
+        text-shadow: 0 0 8px rgb(247 197 59 / 40%);
+        letter-spacing: 0.03em;
+        transition: color 0.2s, text-shadow 0.2s;
+    }
+
+    &:hover .dc-text {
+        color: #fff8d6 !important;
+        text-shadow: 0 0 14px rgb(247 197 59 / 70%);
+    }
+}
+
+/* ── Announcements button ── */
+.announcements__button {
+    background: linear-gradient(
+        135deg,
+        rgb(30 24 5 / 90%) 0%,
+        rgb(60 46 6 / 90%) 100%
+    ) !important;
+    border: 1.5px solid rgb(247 197 59 / 45%) !important;
+    box-shadow: 0 0 12px rgb(247 197 59 / 20%) !important;
+    transition: all 0.25s ease !important;
+    border-radius: 2.4rem !important;
+
+    svg path { fill: #f7c53b !important; }
+
+    .dc-text {
+        color: #f7c53b !important;
+        font-weight: 600 !important;
+    }
+
+    &:hover {
+        border-color: rgb(247 197 59 / 80%) !important;
+        box-shadow: 0 0 20px rgb(247 197 59 / 40%) !important;
+        background: linear-gradient(
+            135deg,
+            rgb(60 46 6 / 95%) 0%,
+            rgb(90 70 8 / 95%) 100%
+        ) !important;
+    }
+}
+
+/* ── Bot list section ── */
+.bot-list {
+    &__title .dc-text {
+        color: #f7c53b !important;
+        text-shadow: 0 0 10px rgb(247 197 59 / 40%);
+        font-weight: 700 !important;
+    }
+
+    &__header {
+        border-bottom: 1px solid rgb(247 197 59 / 30%) !important;
+
+        .dc-text {
+            color: rgb(247 197 59 / 80%) !important;
+            font-weight: 700 !important;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            font-size: 1.1rem !important;
+        }
+    }
+
+    &__item {
+        border-bottom: 1px solid rgb(247 197 59 / 12%) !important;
+        transition: background 0.2s ease;
+
+        &:hover {
+            background: linear-gradient(
+                90deg,
+                rgb(247 197 59 / 6%) 0%,
+                transparent 100%
+            ) !important;
+        }
+
+        &__label .dc-text,
+        &__time-stamp .dc-text,
+        &__load-type .dc-text {
+            color: rgb(247 197 59 / 80%) !important;
+        }
+
+        &__actions button svg {
+            fill: rgb(247 197 59 / 70%) !important;
+            transition: fill 0.2s;
+        }
+
+        &__actions button:hover svg {
+            fill: #f7c53b !important;
+            filter: drop-shadow(0 0 6px rgb(247 197 59 / 60%));
+        }
+    }
+}
+
+/* ── User guide / tutorial button ── */
+.user-guide__button {
+    background: linear-gradient(
+        135deg,
+        rgb(30 24 5 / 90%) 0%,
+        rgb(60 46 6 / 90%) 100%
+    ) !important;
+    border: 1.5px solid rgb(247 197 59 / 40%) !important;
+    box-shadow: 0 0 10px rgb(247 197 59 / 15%) !important;
+    transition: all 0.25s ease !important;
+
+    svg { fill: #f7c53b !important; }
+    .dc-text { color: #f7c53b !important; }
+
+    &:hover {
+        border-color: rgb(247 197 59 / 75%) !important;
+        box-shadow: 0 0 18px rgb(247 197 59 / 35%) !important;
+    }
+}
+
+/* ── Minimized card mode (mobile with saved bots) ── */
+.tab__dashboard__table__images--minimized {
+    border-radius: 0.8rem !important;
+}
