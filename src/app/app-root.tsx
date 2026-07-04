@@ -11,8 +11,6 @@ import './app-root.scss';
 
 const AppContent = lazy(() => import('./app-content'));
 
-const AppRootLoader = () => <ConnectionLoader />;
-
 const ErrorComponentWrapper = observer(() => {
     const { common } = useStore();
 
@@ -38,7 +36,6 @@ const AppRoot = () => {
     const api_base_initialized = useRef(false);
     const [is_api_initialized, setIsApiInitialized] = useState(false);
 
-    // Initialize API
     useEffect(() => {
         const timeoutId = setTimeout(() => {
             if (!is_api_initialized) {
@@ -67,10 +64,10 @@ const AppRoot = () => {
 
     const isConnected = connectionStatus === CONNECTION_STATUS.OPENED;
 
-    if (!store || !is_api_initialized || !isConnected) return <AppRootLoader />;
+    if (!store || !is_api_initialized || !isConnected) return <ConnectionLoader />;
 
     return (
-        <Suspense fallback={<AppRootLoader />}>
+        <Suspense fallback={<ConnectionLoader />}>
             <ErrorBoundary root_store={store}>
                 <ErrorComponentWrapper />
                 <AppContent />

@@ -4,6 +4,7 @@ import './connection-loader.scss';
 const STEPS = [
     'Please wait as we connect to the server…',
     'Initialising workspace…',
+    'Initialising Deriv Bot account…',
     'Almost ready…',
 ];
 
@@ -13,7 +14,7 @@ const ConnectionLoader = () => {
     useEffect(() => {
         const id = setInterval(() => {
             setStep(s => (s < STEPS.length - 1 ? s + 1 : s));
-        }, 2400);
+        }, 3500);
         return () => clearInterval(id);
     }, []);
 

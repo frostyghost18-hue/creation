@@ -7,7 +7,7 @@ $gold-glow: rgba(247, 197, 59, 0.45);
 .conn-loader {
     position: fixed;
     inset: 0;
-    z-index: 9999;
+    z-index: 100000;
     display: flex;
     flex-direction: column;
     align-items: center;
