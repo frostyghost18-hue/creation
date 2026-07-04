@@ -222,7 +222,7 @@ const CopyTrading = observer(() => {
 
                     {/* Token Replicator card */}
                     <div className='ct2__card'>
-                        <div className='ct2__card-icon ct2__card-icon--orange'>
+                        <div className='ct2__card-icon ct2__card-icon--gold'>
                             <IconKey />
                         </div>
                         <div className='ct2__card-heading'>{localize('Token Replicator')}</div>
