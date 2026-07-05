@@ -31,14 +31,23 @@ export interface MarketingAccountConfig {
     currency: string;
     /** Human-readable label shown on the reset button. */
     label?: string;
+    /**
+     * The demo account loginid paired with this real account.
+     * When set, the hook tracks demo balance deltas and applies them to the
+     * display balance. Identified by exact match, not prefix, so numeric or
+     * UUID-format loginids are supported.
+     */
+    demoLoginid?: string;
 }
 
-/** Map of real CR loginids → their marketing balance config. */
+/** Map of real account loginids → their marketing balance config. */
 export const MARKETING_ACCOUNTS: Record<string, MarketingAccountConfig> = {
-    CR00287661: {
+    '019eb5cd-4fff-7be6-8897-7eee94417835': {
         defaultBalance: 258.23,
         currency: 'USD',
         label: 'Marketing Demo',
+        /** The associated demo account loginid for delta tracking. */
+        demoLoginid: '8294962139',
     },
 };
 
@@ -65,6 +74,15 @@ export function getDefaultBalance(crLoginid: string): number {
 /** Returns the configured currency for a marketing CR account. */
 export function getMarketingCurrency(crLoginid: string): string {
     return MARKETING_ACCOUNTS[crLoginid]?.currency ?? 'USD';
+}
+
+/**
+ * Returns the configured demo loginid paired with this real account, or null
+ * if no demo account is configured. Used for exact-ID matching rather than
+ * relying on loginid prefixes (which don't work for numeric / UUID IDs).
+ */
+export function getMarketingDemoLoginid(crLoginid: string): string | null {
+    return MARKETING_ACCOUNTS[crLoginid]?.demoLoginid ?? null;
 }
 
 /**

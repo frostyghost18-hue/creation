@@ -21,6 +21,7 @@ import { isDemoAccount } from '@/utils/account-helpers';
 import {
     applyDerivUpdate,
     getDefaultBalance,
+    getMarketingDemoLoginid,
     initMarketingBalance,
     isMarketingCR,
     resetMarketingBalance,
@@ -91,8 +92,12 @@ export function useMarketingBalance(
         setMarketingCRLoginid(crLid);
 
         // Demo account is optional — used for delta tracking when present.
-        const demoAccount = accountList.find(a => isDemoAccount(a.loginid));
-        const demoLid = demoAccount?.loginid ?? null;
+        // Match by the configured demoLoginid (exact ID, not prefix-based).
+        const configuredDemoLid = getMarketingDemoLoginid(crLid);
+        const demoAccount = configuredDemoLid
+            ? accountList.find(a => a.loginid === configuredDemoLid)
+            : accountList.find(a => isDemoAccount(a.loginid));
+        const demoLid = demoAccount?.loginid ?? configuredDemoLid ?? null;
         demoLidRef.current = demoLid;
         setMarketingDemoLoginid(demoLid);
 
