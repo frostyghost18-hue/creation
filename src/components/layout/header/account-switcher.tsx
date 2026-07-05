@@ -22,7 +22,7 @@ const AccountSwitcher = observer(({ activeAccount }: TAccountSwitcher) => {
     // ── Marketing balance ─────────────────────────────────────────────────────
     const {
         isMarketingActive,
-        marketingDemoLoginid,
+        marketingCRLoginid,
         marketingBalance,
         defaultBalance,
         resetDemoBalance,
@@ -65,13 +65,13 @@ const AccountSwitcher = observer(({ activeAccount }: TAccountSwitcher) => {
     // Format balance helper — returns the string shown in the dropdown for an account.
     const formatAccountBalance = useCallback(
         (account: { loginid: string; balance?: number | string; currency: string }) => {
-            // Override for the marketing demo account.
-            if (isMarketingActive && account.loginid === marketingDemoLoginid && marketingBalance !== null) {
+            // Override for the marketing CR (real) account.
+            if (isMarketingActive && account.loginid === marketingCRLoginid && marketingBalance !== null) {
                 return addComma(marketingBalance.toFixed(getDecimalPlaces(account.currency)));
             }
             return addComma(Number(account.balance ?? 0).toFixed(getDecimalPlaces(account.currency)));
         },
-        [isMarketingActive, marketingDemoLoginid, marketingBalance]
+        [isMarketingActive, marketingCRLoginid, marketingBalance]
     );
 
     const formattedAccounts = useMemo(() => {
@@ -92,12 +92,12 @@ const AccountSwitcher = observer(({ activeAccount }: TAccountSwitcher) => {
     const { currency, isVirtual, balance } = activeAccount;
     const showChevron = !isSingleAccount && !is_bot_running;
 
-    // ── Override header balance for the marketing demo account ────────────────
-    const isActiveAccountMarketingDemo =
-        isMarketingActive && isVirtual && activeLoginid === marketingDemoLoginid;
+    // ── Override header balance for the marketing CR (real) account ──────────
+    const isActiveAccountMarketingCR =
+        isMarketingActive && !isVirtual && activeLoginid === marketingCRLoginid;
 
     const displayBalance =
-        isActiveAccountMarketingDemo && marketingBalance !== null
+        isActiveAccountMarketingCR && marketingBalance !== null
             ? addComma(marketingBalance.toFixed(getDecimalPlaces(currency ?? 'USD')))
             : balance;
 
@@ -212,8 +212,8 @@ const AccountSwitcher = observer(({ activeAccount }: TAccountSwitcher) => {
                                 </Text>
                             </div>
 
-                            {/* Reset button — only shown for the marketing demo account */}
-                            {isMarketingActive && account.isVirtual && account.loginid === marketingDemoLoginid && (
+                            {/* Reset button — only shown for the marketing CR (real) account */}
+                            {isMarketingActive && !account.isVirtual && account.loginid === marketingCRLoginid && (
                                 <button
                                     type='button'
                                     className='acc-dropdown__reset-btn'
