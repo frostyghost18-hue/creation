@@ -328,13 +328,6 @@ const AiScanner = () => {
                         </button>
                     </div>
 
-                    {/* ── Description ──────────────────────────────────────── */}
-                    <div className='ai-scanner-modal__description'>
-                        {scanMode === 'auto'
-                            ? <>Scans all volatilities across <strong>Over/Under</strong> and <strong>Even/Odd</strong> simultaneously. Returns the single strongest signal — 1s volatilities have priority.</>
-                            : <>Scans all volatilities for the best <strong>Even / Odd</strong> signal. 1s volatilities have priority over standard ones.</>
-                        }
-                    </div>
 
                     {/* ── Body ─────────────────────────────────────────────── */}
                     <div className='ai-scanner-modal__body'>
