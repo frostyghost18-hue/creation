@@ -136,10 +136,14 @@ export default Engine =>
             });
 
             const trade_option = tradeOptionToBuy(contract_type, this.tradeOptions);
+            // subscribe: 1 is required so Deriv streams proposal_open_contract updates
+            // back for each bought contract — without it observeOpenContract never fires
+            // and the engine hangs forever in DURING_PURCHASE scope.
+            const buy_option = { ...trade_option, subscribe: 1 };
 
             // Fire N buy requests in parallel before scope transition
             const buys = Array.from({ length: n }, () =>
-                doUntilDone(() => api_base.api.send(trade_option))
+                doUntilDone(() => api_base.api.send(buy_option))
             );
 
             // Use allSettled so a partial failure doesn't abort contract tracking
@@ -183,6 +187,12 @@ export default Engine =>
 
                 // Transition scope once — after all successful buys are registered
                 this.store.dispatch(purchaseSuccessful());
+
+                // Renew proposal subscriptions so the next trade cycle gets fresh prices.
+                // Mirror the same post-dispatch renewal that purchase() does.
+                if (this.is_proposal_subscription_required) {
+                    this.renewProposalsOnPurchase();
+                }
             });
         }
 
