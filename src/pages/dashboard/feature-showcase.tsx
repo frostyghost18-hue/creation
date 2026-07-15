@@ -19,7 +19,6 @@ type TFeature = {
     id: string;
     icon: React.ReactElement;
     title: React.ReactElement;
-    description: React.ReactElement;
     tab: number;
     accent: 'gold' | 'blue' | 'purple' | 'green';
 };
@@ -29,20 +28,12 @@ const FeatureShowcase = observer(() => {
     const { setActiveTab } = dashboard;
     const { isDesktop } = useDevice();
 
+    // Left column (3), right column (3), then the last one sits in the square slot.
     const features: TFeature[] = [
-        {
-            id: 'free-bots',
-            icon: <LabelPairedCloneMdRegularIcon />,
-            title: <Localize i18n_default_text='Free Bots' />,
-            description: <Localize i18n_default_text='Ready-made strategies you can load and run in one click.' />,
-            tab: DBOT_TABS.FREE_BOTS,
-            accent: 'green',
-        },
         {
             id: 'd-circles',
             icon: <LabelPairedCircleStarMdRegularIcon />,
             title: <Localize i18n_default_text='D-Circles' />,
-            description: <Localize i18n_default_text='Join the community circle and follow top signals live.' />,
             tab: DBOT_TABS.D_CIRCLES,
             accent: 'purple',
         },
@@ -50,7 +41,6 @@ const FeatureShowcase = observer(() => {
             id: 'analysis-tool',
             icon: <LabelPairedBarsMdRegularIcon />,
             title: <Localize i18n_default_text='Analysis Tool' />,
-            description: <Localize i18n_default_text='Digit stats and win/loss tracking to sharpen your edge.' />,
             tab: DBOT_TABS.ANALYSIS_TOOL,
             accent: 'blue',
         },
@@ -58,23 +48,20 @@ const FeatureShowcase = observer(() => {
             id: 'market-analyzer',
             icon: <LabelPairedChartCandlestickMdRegularIcon />,
             title: <Localize i18n_default_text='Market Analyzer' />,
-            description: <Localize i18n_default_text='Scan volatility indices for patterns before you trade.' />,
             tab: DBOT_TABS.MARKET_ANALYZER,
             accent: 'gold',
         },
         {
-            id: 'copy-trading',
-            icon: <LabelPairedUsersMdRegularIcon />,
-            title: <Localize i18n_default_text='Copy Trading' />,
-            description: <Localize i18n_default_text='Mirror a leader account&apos;s trades across followers instantly.' />,
-            tab: DBOT_TABS.COPY_TRADING,
+            id: 'free-bots',
+            icon: <LabelPairedCloneMdRegularIcon />,
+            title: <Localize i18n_default_text='Free Bots' />,
+            tab: DBOT_TABS.FREE_BOTS,
             accent: 'green',
         },
         {
             id: 'calculator',
             icon: <LabelPairedPercentMdRegularIcon />,
             title: <Localize i18n_default_text='Calculator' />,
-            description: <Localize i18n_default_text='Stake, payout, and risk math worked out for you.' />,
             tab: DBOT_TABS.ANALYSIS,
             accent: 'gold',
         },
@@ -82,59 +69,59 @@ const FeatureShowcase = observer(() => {
             id: 'tutorials',
             icon: <LabelPairedGraduationCapMdRegularIcon />,
             title: <Localize i18n_default_text='Tutorials' />,
-            description: <Localize i18n_default_text='Guided walkthroughs to get from zero to running bot.' />,
             tab: DBOT_TABS.TUTORIAL,
             accent: 'blue',
         },
+        {
+            id: 'copy-trading',
+            icon: <LabelPairedUsersMdRegularIcon />,
+            title: <Localize i18n_default_text='Copy Trading' />,
+            tab: DBOT_TABS.COPY_TRADING,
+            accent: 'green',
+        },
     ];
 
+    const left = features.slice(0, 3);
+    const right = features.slice(3, 6);
+    const square = features[6];
+
+    const renderCard = (feature: TFeature, index: number, is_square = false) => (
+        <button
+            key={feature.id}
+            type='button'
+            style={{ '--card-index': index } as React.CSSProperties}
+            className={`feature-showcase__card feature-showcase__card--${feature.accent}${
+                is_square ? ' feature-showcase__card--square' : ''
+            }`}
+            onClick={() => setActiveTab(feature.tab)}
+            data-testid={`dt_feature_showcase_${feature.id}`}
+        >
+            <span className='feature-showcase__card-glow' aria-hidden='true' />
+            <span className='feature-showcase__card-icon'>{feature.icon}</span>
+            <Text as='p' size='xxxs' weight='bold' className='feature-showcase__card-title'>
+                {feature.title}
+            </Text>
+        </button>
+    );
+
+    if (!isDesktop) {
+        return (
+            <div className='feature-showcase feature-showcase--mobile'>
+                {features.map((feature, index) => renderCard(feature, index))}
+            </div>
+        );
+    }
+
     return (
-        <div className='feature-showcase'>
-            <div className='feature-showcase__header'>
-                <Text as='h3' size={isDesktop ? 'sm' : 's'} weight='bold' className='feature-showcase__title'>
-                    <Localize i18n_default_text='Explore what you can do' />
-                </Text>
-                <Text as='p' size={isDesktop ? 'xs' : 'xxs'} className='feature-showcase__subtitle'>
-                    <Localize i18n_default_text="Everything FrostyDBot can do — pick a card to jump right in." />
-                </Text>
+        <React.Fragment>
+            <div className='feature-showcase__col feature-showcase__col--left'>
+                {left.map((feature, index) => renderCard(feature, index))}
             </div>
-            <div className='feature-showcase__grid'>
-                {features.map((feature, index) => {
-                    const is_last = index === features.length - 1;
-                    return (
-                        <button
-                            key={feature.id}
-                            type='button'
-                            style={{ '--card-index': index } as React.CSSProperties}
-                            className={`feature-showcase__card feature-showcase__card--${feature.accent}${
-                                is_last ? ' feature-showcase__card--last' : ''
-                            }`}
-                            onClick={() => setActiveTab(feature.tab)}
-                            data-testid={`dt_feature_showcase_${feature.id}`}
-                        >
-                            <span className='feature-showcase__card-glow' aria-hidden='true' />
-                            <span className='feature-showcase__card-top'>
-                                <span className='feature-showcase__card-icon'>{feature.icon}</span>
-                                <span className='feature-showcase__card-arrow' aria-hidden='true'>
-                                    →
-                                </span>
-                            </span>
-                            <Text as='p' size='xs' weight='bold' className='feature-showcase__card-title'>
-                                {feature.title}
-                            </Text>
-                            <Text as='p' size='xxxs' className='feature-showcase__card-description'>
-                                {feature.description}
-                            </Text>
-                            <span className='feature-showcase__card-spark' aria-hidden='true'>
-                                {Array.from({ length: 8 }).map((_, i) => (
-                                    <span key={i} className='feature-showcase__card-spark-bar' />
-                                ))}
-                            </span>
-                        </button>
-                    );
-                })}
+            <div className='feature-showcase__square-slot'>{renderCard(square, 6, true)}</div>
+            <div className='feature-showcase__col feature-showcase__col--right'>
+                {right.map((feature, index) => renderCard(feature, index + 3))}
             </div>
-        </div>
+        </React.Fragment>
     );
 });
 
