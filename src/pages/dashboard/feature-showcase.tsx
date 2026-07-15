@@ -6,13 +6,10 @@ import { useStore } from '@/hooks/useStore';
 import {
     LabelPairedBarsMdRegularIcon,
     LabelPairedChartCandlestickMdRegularIcon,
-    LabelPairedChartLineMdRegularIcon,
-    LabelPairedChartTradingviewMdRegularIcon,
     LabelPairedCircleStarMdRegularIcon,
     LabelPairedCloneMdRegularIcon,
     LabelPairedGraduationCapMdRegularIcon,
     LabelPairedPercentMdRegularIcon,
-    LabelPairedPuzzlePieceTwoMdRegularIcon,
     LabelPairedUsersMdRegularIcon,
 } from '@deriv/quill-icons/LabelPaired';
 import { Localize } from '@deriv-com/translations';
@@ -33,14 +30,6 @@ const FeatureShowcase = observer(() => {
     const { isDesktop } = useDevice();
 
     const features: TFeature[] = [
-        {
-            id: 'bot-builder',
-            icon: <LabelPairedPuzzlePieceTwoMdRegularIcon />,
-            title: <Localize i18n_default_text='Bot Builder' />,
-            description: <Localize i18n_default_text='Drag, drop, and automate — build a strategy block by block.' />,
-            tab: DBOT_TABS.BOT_BUILDER,
-            accent: 'gold',
-        },
         {
             id: 'free-bots',
             icon: <LabelPairedCloneMdRegularIcon />,
@@ -72,22 +61,6 @@ const FeatureShowcase = observer(() => {
             description: <Localize i18n_default_text='Scan volatility indices for patterns before you trade.' />,
             tab: DBOT_TABS.MARKET_ANALYZER,
             accent: 'gold',
-        },
-        {
-            id: 'charts',
-            icon: <LabelPairedChartLineMdRegularIcon />,
-            title: <Localize i18n_default_text='Charts' />,
-            description: <Localize i18n_default_text='Live SmartCharts, right alongside your workspace.' />,
-            tab: DBOT_TABS.CHART,
-            accent: 'blue',
-        },
-        {
-            id: 'trading-view',
-            icon: <LabelPairedChartTradingviewMdRegularIcon />,
-            title: <Localize i18n_default_text='Trading View' />,
-            description: <Localize i18n_default_text='Pro-grade charting powered by TradingView.' />,
-            tab: DBOT_TABS.TRADING_VIEW,
-            accent: 'purple',
         },
         {
             id: 'copy-trading',
