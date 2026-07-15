@@ -50,7 +50,11 @@
         position: absolute;
         inset: 4px;
         border-radius: 50%;
-        background: radial-gradient(circle at 38% 30%, #2d1f00 0%, #1a1200 55%, #0f0a00 100%);
+        background: radial-gradient(circle at 38% 30%, #ffe9a8 0%, #fbbf24 30%, #d97706 65%, #7c4a05 100%);
+        box-shadow:
+            inset 0 0 18px 4px rgba(255, 236, 168, 0.9),
+            inset 0 0 40px 10px rgba(245, 158, 11, 0.85);
+        animation: ai-inner-glow 2s ease-in-out infinite alternate;
         z-index: 0;
     }
 
@@ -77,10 +81,11 @@
         line-height: 1;
         pointer-events: none;
         user-select: none;
-        background: linear-gradient(180deg, #fef3c7 0%, #fbbf24 40%, #d97706 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
+        color: #2a1400;
+        text-shadow:
+            0 0 6px rgba(255, 249, 219, 0.95),
+            0 0 14px rgba(255, 214, 100, 0.9),
+            0 1px 1px rgba(0, 0, 0, 0.35);
         animation: ai-text-glow 2.2s ease-in-out infinite alternate;
     }
 
@@ -149,8 +154,24 @@
 
 // Gold text glow pulse
 @keyframes ai-text-glow {
-    0%   { filter: drop-shadow(0 0 3px rgba(253,230,138,0.2)); }
-    100% { filter: drop-shadow(0 0 14px rgba(253,230,138,1.0)); }
+    0%   { filter: drop-shadow(0 0 2px rgba(255, 249, 219, 0.5)); }
+    100% { filter: drop-shadow(0 0 10px rgba(255, 214, 100, 1)); }
+}
+
+// Inner golden core breathing glow
+@keyframes ai-inner-glow {
+    0% {
+        box-shadow:
+            inset 0 0 14px 3px rgba(255, 236, 168, 0.75),
+            inset 0 0 30px 8px rgba(245, 158, 11, 0.7);
+        filter: brightness(1);
+    }
+    100% {
+        box-shadow:
+            inset 0 0 24px 6px rgba(255, 249, 219, 1),
+            inset 0 0 52px 14px rgba(245, 158, 11, 0.95);
+        filter: brightness(1.15);
+    }
 }
 
 // Wave rings expand outward and fade
