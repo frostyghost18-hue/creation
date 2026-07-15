@@ -49,7 +49,13 @@ const Draggable: React.FC<TDraggableProps> = ({
         calculateZindex({ setZIndex });
     }, [boundary]);
 
-    const handleMouseDown = (event: React.MouseEvent<HTMLElement, MouseEvent> | null, action: string) => {
+    const handleMouseDown = (
+        event:
+            | React.MouseEvent<HTMLElement, MouseEvent>
+            | React.TouchEvent<HTMLElement>
+            | null,
+        action: string
+    ) => {
         event?.stopPropagation();
         calculateZindex({ setZIndex });
         if (!action) return;
@@ -57,11 +63,14 @@ const Draggable: React.FC<TDraggableProps> = ({
         isResizing.current = action !== DRAGGABLE_CONSTANTS.MOVE && enableResizing;
         setIsDragging(action === DRAGGABLE_CONSTANTS.MOVE && enableDragging);
 
+        const is_touch_event = event && 'touches' in event;
+        const touch_point = is_touch_event ? (event as React.TouchEvent<HTMLElement>).touches[0] : null;
+
         const boundaryRect = boundaryRef?.getBoundingClientRect();
         const topOffset = boundaryRef?.offsetTop ?? 0;
         const leftOffset = boundaryRef?.offsetLeft ?? 0;
-        const initialMouseX = event?.clientX ?? 0;
-        const initialMouseY = event?.clientY ?? 0;
+        const initialMouseX = touch_point?.clientX ?? (event as React.MouseEvent)?.clientX ?? 0;
+        const initialMouseY = touch_point?.clientY ?? (event as React.MouseEvent)?.clientY ?? 0;
         const initialWidth = size?.width ?? initialValues.width;
         const initialHeight = size?.height ?? initialValues.height;
         const initialX = position?.x ?? 0;
@@ -82,9 +91,12 @@ const Draggable: React.FC<TDraggableProps> = ({
             }
         }
 
-        const handleMouseMove = (e: { clientX: number; clientY: number }) => {
+        const handleMouseMove = (e: { clientX: number; clientY: number } | TouchEvent) => {
             if (!e) return;
-            const { clientX, clientY } = e;
+            if ('touches' in e) e.preventDefault();
+            const point = 'touches' in e ? e.touches[0] : e;
+            if (!point) return;
+            const { clientX, clientY } = point;
             const deltaX = clientX - initialMouseX;
             const deltaY = clientY - initialMouseY;
             try {
@@ -185,12 +197,19 @@ const Draggable: React.FC<TDraggableProps> = ({
             if (boundaryRef) {
                 window.removeEventListener('mousemove', handleMouseMove);
                 window.removeEventListener('mouseup', handleMouseUp);
+                window.removeEventListener('touchmove', handleMouseMove);
+                window.removeEventListener('touchend', handleMouseUp);
             }
         };
 
         if (boundaryRef) {
-            window.addEventListener('mousemove', handleMouseMove);
-            window.addEventListener('mouseup', handleMouseUp);
+            if (is_touch_event) {
+                window.addEventListener('touchmove', handleMouseMove, { passive: false });
+                window.addEventListener('touchend', handleMouseUp);
+            } else {
+                window.addEventListener('mousemove', handleMouseMove);
+                window.addEventListener('mouseup', handleMouseUp);
+            }
         }
     };
 
@@ -214,6 +233,7 @@ const Draggable: React.FC<TDraggableProps> = ({
                     data-testid='dt_react_draggable_handler'
                     className='draggable-content__header'
                     onMouseDown={e => handleMouseDown(e, DRAGGABLE_CONSTANTS.MOVE)}
+                    onTouchStart={e => handleMouseDown(e, DRAGGABLE_CONSTANTS.MOVE)}
                     onKeyDown={(e: React.KeyboardEvent<HTMLElement>) =>
                         e.key === 'Enter' && handleMouseDown(null, DRAGGABLE_CONSTANTS.MOVE)
                     }
@@ -245,6 +265,7 @@ const Draggable: React.FC<TDraggableProps> = ({
                                 e.key === 'Enter' && handleMouseDown(null, DRAGGABLE_CONSTANTS.MOVE)
                             }
                             onMouseDown={e => handleMouseDown(e, DRAGGABLE_CONSTANTS.TOP)}
+                            onTouchStart={e => handleMouseDown(e, DRAGGABLE_CONSTANTS.TOP)}
                             tabIndex={0}
                         />
                         <div
@@ -254,6 +275,7 @@ const Draggable: React.FC<TDraggableProps> = ({
                                 e.key === 'Enter' && handleMouseDown(null, DRAGGABLE_CONSTANTS.MOVE)
                             }
                             onMouseDown={e => handleMouseDown(e, DRAGGABLE_CONSTANTS.RIGHT)}
+                            onTouchStart={e => handleMouseDown(e, DRAGGABLE_CONSTANTS.RIGHT)}
                             tabIndex={0}
                         />
                         <div
@@ -263,6 +285,7 @@ const Draggable: React.FC<TDraggableProps> = ({
                                 e.key === 'Enter' && handleMouseDown(null, DRAGGABLE_CONSTANTS.MOVE)
                             }
                             onMouseDown={e => handleMouseDown(e, DRAGGABLE_CONSTANTS.BOTTOM)}
+                            onTouchStart={e => handleMouseDown(e, DRAGGABLE_CONSTANTS.BOTTOM)}
                             tabIndex={0}
                         />
                         <div
@@ -272,6 +295,7 @@ const Draggable: React.FC<TDraggableProps> = ({
                                 e.key === 'Enter' && handleMouseDown(null, DRAGGABLE_CONSTANTS.MOVE)
                             }
                             onMouseDown={e => handleMouseDown(e, DRAGGABLE_CONSTANTS.LEFT)}
+                            onTouchStart={e => handleMouseDown(e, DRAGGABLE_CONSTANTS.LEFT)}
                             tabIndex={0}
                         />
                         <div
@@ -281,6 +305,7 @@ const Draggable: React.FC<TDraggableProps> = ({
                                 e.key === 'Enter' && handleMouseDown(null, DRAGGABLE_CONSTANTS.MOVE)
                             }
                             onMouseDown={e => handleMouseDown(e, DRAGGABLE_CONSTANTS.TOP_RIGHT)}
+                            onTouchStart={e => handleMouseDown(e, DRAGGABLE_CONSTANTS.TOP_RIGHT)}
                             tabIndex={0}
                         />
                         <div
@@ -290,6 +315,7 @@ const Draggable: React.FC<TDraggableProps> = ({
                                 e.key === 'Enter' && handleMouseDown(null, DRAGGABLE_CONSTANTS.MOVE)
                             }
                             onMouseDown={e => handleMouseDown(e, DRAGGABLE_CONSTANTS.BOTTOM_RIGHT)}
+                            onTouchStart={e => handleMouseDown(e, DRAGGABLE_CONSTANTS.BOTTOM_RIGHT)}
                             tabIndex={0}
                         />
                         <div
@@ -299,6 +325,7 @@ const Draggable: React.FC<TDraggableProps> = ({
                                 e.key === 'Enter' && handleMouseDown(null, DRAGGABLE_CONSTANTS.MOVE)
                             }
                             onMouseDown={e => handleMouseDown(e, DRAGGABLE_CONSTANTS.BOTTOM_LEFT)}
+                            onTouchStart={e => handleMouseDown(e, DRAGGABLE_CONSTANTS.BOTTOM_LEFT)}
                             tabIndex={0}
                         />
                         <div
@@ -308,6 +335,7 @@ const Draggable: React.FC<TDraggableProps> = ({
                                 e.key === 'Enter' && handleMouseDown(null, DRAGGABLE_CONSTANTS.MOVE)
                             }
                             onMouseDown={e => handleMouseDown(e, DRAGGABLE_CONSTANTS.TOP_LEFT)}
+                            onTouchStart={e => handleMouseDown(e, DRAGGABLE_CONSTANTS.TOP_LEFT)}
                             tabIndex={0}
                         />
                     </>
