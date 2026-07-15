@@ -99,35 +99,40 @@ const FeatureShowcase = observer(() => {
                 </Text>
             </div>
             <div className='feature-showcase__grid'>
-                {features.map((feature, index) => (
-                    <button
-                        key={feature.id}
-                        type='button'
-                        style={{ '--card-index': index } as React.CSSProperties}
-                        className={`feature-showcase__card feature-showcase__card--${feature.accent}`}
-                        onClick={() => setActiveTab(feature.tab)}
-                        data-testid={`dt_feature_showcase_${feature.id}`}
-                    >
-                        <span className='feature-showcase__card-glow' aria-hidden='true' />
-                        <span className='feature-showcase__card-top'>
-                            <span className='feature-showcase__card-icon'>{feature.icon}</span>
-                            <span className='feature-showcase__card-arrow' aria-hidden='true'>
-                                →
+                {features.map((feature, index) => {
+                    const is_last = index === features.length - 1;
+                    return (
+                        <button
+                            key={feature.id}
+                            type='button'
+                            style={{ '--card-index': index } as React.CSSProperties}
+                            className={`feature-showcase__card feature-showcase__card--${feature.accent}${
+                                is_last ? ' feature-showcase__card--last' : ''
+                            }`}
+                            onClick={() => setActiveTab(feature.tab)}
+                            data-testid={`dt_feature_showcase_${feature.id}`}
+                        >
+                            <span className='feature-showcase__card-glow' aria-hidden='true' />
+                            <span className='feature-showcase__card-top'>
+                                <span className='feature-showcase__card-icon'>{feature.icon}</span>
+                                <span className='feature-showcase__card-arrow' aria-hidden='true'>
+                                    →
+                                </span>
                             </span>
-                        </span>
-                        <Text as='p' size='xs' weight='bold' className='feature-showcase__card-title'>
-                            {feature.title}
-                        </Text>
-                        <Text as='p' size='xxxs' className='feature-showcase__card-description'>
-                            {feature.description}
-                        </Text>
-                        <span className='feature-showcase__card-spark' aria-hidden='true'>
-                            {Array.from({ length: 8 }).map((_, i) => (
-                                <span key={i} className='feature-showcase__card-spark-bar' />
-                            ))}
-                        </span>
-                    </button>
-                ))}
+                            <Text as='p' size='xs' weight='bold' className='feature-showcase__card-title'>
+                                {feature.title}
+                            </Text>
+                            <Text as='p' size='xxxs' className='feature-showcase__card-description'>
+                                {feature.description}
+                            </Text>
+                            <span className='feature-showcase__card-spark' aria-hidden='true'>
+                                {Array.from({ length: 8 }).map((_, i) => (
+                                    <span key={i} className='feature-showcase__card-spark-bar' />
+                                ))}
+                            </span>
+                        </button>
+                    );
+                })}
             </div>
         </div>
     );
