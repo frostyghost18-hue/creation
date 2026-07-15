@@ -727,3 +727,8 @@
 .tab__dashboard__table__images--minimized {
     border-radius: 0.8rem !important;
 }
+
+/* ── Hide the "Import a bot..." helper subtitle ── */
+.tab__dashboard__header .subtitle {
+    display: none !important;
+}
