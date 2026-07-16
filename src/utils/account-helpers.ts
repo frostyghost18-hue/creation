@@ -49,6 +49,37 @@ export const getAccountType = (loginid?: string): string | undefined => {
 };
 
 /**
+ * Return a journal-friendly account label for the current loginid.
+ */
+export const getAccountTypeLabel = (loginid?: string): string => {
+    const accountType = getAccountType(loginid);
+    if (accountType === 'demo') {
+        return 'demo account';
+    }
+    if (accountType === 'real') {
+        return 'real account';
+    }
+    return 'real account';
+};
+
+/**
+ * Check whether the bot should stop before opening the next trade.
+ */
+export const shouldStopTradingForBalance = (
+    balance: number | string | null | undefined,
+    nextTradeAmount: number | string | null | undefined
+): boolean => {
+    const numericBalance = Number(balance ?? 0);
+    const numericNextTradeAmount = Number(nextTradeAmount ?? 0);
+
+    if (!Number.isFinite(numericBalance) || !Number.isFinite(numericNextTradeAmount)) {
+        return false;
+    }
+
+    return numericBalance <= 0 || numericBalance < numericNextTradeAmount;
+};
+
+/**
  * Gets account_id with priority: URL parameter > localStorage > null
  * @returns account_id string or null
  */

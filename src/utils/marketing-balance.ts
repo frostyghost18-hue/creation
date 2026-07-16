@@ -47,7 +47,7 @@ export const MARKETING_ACCOUNTS: Record<string, MarketingAccountConfig> = {
         currency: 'USD',
         label: 'Marketing Demo',
         /** The associated demo account loginid for delta tracking. */
-        demoLoginid: '8294962139',
+        demoLoginid: '690312599',
     },
     'ROT91803992': {
         defaultBalance: 356.21,

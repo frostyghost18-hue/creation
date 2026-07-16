@@ -4,11 +4,13 @@ import {
     ACCOUNT_TYPE_KEY,
     getAccountId,
     getAccountType,
+    getAccountTypeLabel,
     getDeviceType,
     isDemoAccount,
     isVirtualAccount,
     MAX_MOBILE_WIDTH,
     removeUrlParameter,
+    shouldStopTradingForBalance,
 } from '../account-helpers';
 
 describe('account-helpers', () => {
@@ -132,6 +134,21 @@ describe('account-helpers', () => {
 
         it('should return false when localStorage is empty', () => {
             expect(isVirtualAccount('')).toBe(false);
+        });
+    });
+
+    describe('getAccountTypeLabel', () => {
+        it('should return demo account label for demo loginid', () => {
+            expect(getAccountTypeLabel('VRTC12345')).toBe('demo account');
+            expect(getAccountTypeLabel('CR12345')).toBe('real account');
+        });
+    });
+
+    describe('shouldStopTradingForBalance', () => {
+        it('should stop when balance is zero or less than the next stake', () => {
+            expect(shouldStopTradingForBalance(0, 1)).toBe(true);
+            expect(shouldStopTradingForBalance(5, 10)).toBe(true);
+            expect(shouldStopTradingForBalance(10, 5)).toBe(false);
         });
     });
 

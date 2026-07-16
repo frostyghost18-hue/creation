@@ -22,6 +22,17 @@ jest.mock('@/hooks/useStore', () => ({
     })),
 }));
 
+jest.mock('@/hooks/useMarketingBalance', () => ({
+    useMarketingBalance: jest.fn(() => ({
+        isMarketingActive: false,
+        marketingCRLoginid: null,
+        marketingDemoLoginid: null,
+        marketingBalance: null,
+        defaultBalance: 0,
+        resetBalance: jest.fn(),
+    })),
+}));
+
 jest.mock('@/hooks/useLogout', () => ({
     useLogout: jest.fn(() => jest.fn()),
 }));
@@ -77,6 +88,15 @@ describe('AccountSwitcher', () => {
         useStore.mockReturnValue({
             client: { checkAndRegenerateWebSocket: mockCheckAndRegenerateWebSocket },
             run_panel: { is_running: false },
+        });
+        const { useMarketingBalance } = require('@/hooks/useMarketingBalance');
+        useMarketingBalance.mockReturnValue({
+            isMarketingActive: false,
+            marketingCRLoginid: null,
+            marketingDemoLoginid: null,
+            marketingBalance: null,
+            defaultBalance: 0,
+            resetBalance: jest.fn(),
         });
         require('@/external/bot-skeleton/services/api/api-base').api_base.is_running = false;
     });
@@ -162,6 +182,23 @@ describe('AccountSwitcher', () => {
         const activeOption = options.find(o => o.getAttribute('aria-selected') === 'true');
         if (activeOption) fireEvent.click(activeOption);
         expect(mockCheckAndRegenerateWebSocket).not.toHaveBeenCalled();
+    });
+
+    it('hides the reset button for the marketing demo row', () => {
+        const { useMarketingBalance } = require('@/hooks/useMarketingBalance');
+        useMarketingBalance.mockReturnValue({
+            isMarketingActive: true,
+            marketingCRLoginid: 'CR123',
+            marketingDemoLoginid: 'VRTC456',
+            marketingBalance: 258.23,
+            defaultBalance: 258.23,
+            resetBalance: jest.fn(),
+        });
+
+        render(<AccountSwitcher activeAccount={mockActiveAccount} />);
+        fireEvent.click(screen.getByTestId('dt_acc_info'));
+
+        expect(screen.queryByRole('button', { name: /reset/i })).not.toBeInTheDocument();
     });
 
     it('sorts active account to the top of the list', () => {

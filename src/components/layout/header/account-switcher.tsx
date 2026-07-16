@@ -21,14 +21,9 @@ const AccountSwitcher = observer(({ activeAccount }: TAccountSwitcher) => {
     const { client, run_panel } = useStore() ?? {};
 
     // ── Marketing balance ─────────────────────────────────────────────────────
-    const {
-        isMarketingActive,
-        marketingCRLoginid,
-        marketingDemoLoginid,
-        marketingBalance,
-        defaultBalance,
-        resetBalance,
-    } = useMarketingBalance(accountList);
+    const { isMarketingActive, marketingCRLoginid, marketingDemoLoginid, marketingBalance } = useMarketingBalance(
+        accountList
+    );
 
     const is_bot_running = run_panel?.is_running || api_base.is_running;
     const isSingleAccount = !accountList || accountList.length <= 1;
@@ -231,48 +226,6 @@ const AccountSwitcher = observer(({ activeAccount }: TAccountSwitcher) => {
                                 </Text>
                             </div>
 
-                            {/* Reset button — shown on the demo account row (source of P&L) */}
-                            {isMarketingActive && account.isVirtual && account.loginid === marketingDemoLoginid && (
-                                <button
-                                    type='button'
-                                    className='acc-dropdown__reset-btn'
-                                    onClick={e => {
-                                        e.stopPropagation();
-                                        resetBalance();
-                                    }}
-                                    title={`Reset demo balance to ${defaultBalance} USD`}
-                                >
-                                    <svg
-                                        width='13'
-                                        height='13'
-                                        viewBox='0 0 13 13'
-                                        fill='none'
-                                        aria-hidden='true'
-                                    >
-                                        <path
-                                            d='M2 6.5A4.5 4.5 0 0 1 6.5 2c1.38 0 2.62.62 3.46 1.6M11 6.5A4.5 4.5 0 0 1 6.5 11a4.48 4.48 0 0 1-3.46-1.6'
-                                            stroke='currentColor'
-                                            strokeWidth='1.4'
-                                            strokeLinecap='round'
-                                        />
-                                        <path
-                                            d='M9.5 1.5v2.6H12'
-                                            stroke='currentColor'
-                                            strokeWidth='1.4'
-                                            strokeLinecap='round'
-                                            strokeLinejoin='round'
-                                        />
-                                        <path
-                                            d='M3.5 11.5V8.9H1'
-                                            stroke='currentColor'
-                                            strokeWidth='1.4'
-                                            strokeLinecap='round'
-                                            strokeLinejoin='round'
-                                        />
-                                    </svg>
-                                    <span>Reset to {defaultBalance.toFixed(2)} USD</span>
-                                </button>
-                            )}
                         </div>
                     ))}
                 </div>

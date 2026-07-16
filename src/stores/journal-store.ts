@@ -2,7 +2,8 @@
 import { action, computed, makeObservable, observable, reaction, when } from 'mobx';
 import { v4 as uuidv4 } from 'uuid';
 /* [AI] - Analytics removed - utility functions moved to @/utils/account-helpers */
-import { isVirtualAccount } from '@/utils/account-helpers';
+import { getAccountTypeLabel, isVirtualAccount } from '@/utils/account-helpers';
+import { getMarketingTradingAccount } from '@/utils/marketing-balance';
 /* [/AI] */
 import { formatDate } from '@/components/shared';
 import { run_panel } from '@/constants/run-panel';
@@ -254,10 +255,15 @@ export default class JournalStore {
         const { loginid, account_list } = client as RootStore['client'];
 
         if (loginid) {
-            const current_account = account_list?.find(account => account?.loginid === loginid);
-            // Use centralized utility to determine if demo account
-            const isVirtual = isVirtualAccount(loginid);
-            extra.current_currency = isVirtual ? 'Demo' : current_account?.currency;
+            const tradingLoginid = getMarketingTradingAccount(loginid);
+            const current_account = account_list?.find(account => account?.loginid === tradingLoginid);
+            const isVirtual = isVirtualAccount(tradingLoginid);
+            const fallbackAccountLabel = getAccountTypeLabel(tradingLoginid);
+            const accountReferenceId = tradingLoginid || loginid;
+            const accountLabel = isVirtual
+                ? `${fallbackAccountLabel} (ID: ${accountReferenceId})`
+                : `${fallbackAccountLabel} (ID: ${accountReferenceId})`;
+            extra.current_currency = accountLabel;
         } else if (message === LogTypes.WELCOME) {
             return;
         }

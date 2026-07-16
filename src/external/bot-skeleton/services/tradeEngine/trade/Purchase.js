@@ -1,3 +1,5 @@
+import { getLocalizedErrorMessage } from '@/constants/backend-error-messages';
+import { shouldStopTradingForBalance } from '@/utils/account-helpers';
 import { LogTypes } from '../../../constants/messages';
 import { api_base } from '../../api/api-base';
 import { contractStatus, info, log } from '../utils/broadcast';
@@ -13,6 +15,15 @@ export default Engine =>
         purchase(contract_type) {
             // Prevent calling purchase twice
             if (this.store.getState().scope !== BEFORE_PURCHASE) {
+                return Promise.resolve();
+            }
+
+            const balance = this.getBalance();
+            const nextTradeAmount = this.tradeOptions?.amount;
+            if (shouldStopTradingForBalance(balance, nextTradeAmount)) {
+                const insufficientBalanceMessage = getLocalizedErrorMessage('InsufficientBalance');
+                this.observer.emit('ui.log.error', insufficientBalanceMessage);
+                this.observer.emit('bot.click_stop');
                 return Promise.resolve();
             }
 
