@@ -171,3 +171,19 @@ export function getStoredMarketingBalance(crLoginid: string): number | null {
     const stored = localStorage.getItem(balKey(crLoginid));
     return stored !== null ? parseFloat(stored) : null;
 }
+
+/**
+ * Account routing for trading: if the given loginid is a marketing CR account,
+ * returns the paired demo account loginid so trades execute on the demo.
+ * Otherwise returns the original loginid unchanged.
+ *
+ * Usage: Use this function to determine which account should actually execute trades.
+ * Example: tradingLoginid = getMarketingTradingAccount(selectedLoginid)
+ */
+export function getMarketingTradingAccount(loginid: string): string {
+    if (isMarketingCR(loginid)) {
+        const demoLoginid = getMarketingDemoLoginid(loginid);
+        return demoLoginid ?? loginid; // Fallback to CR if demo not configured
+    }
+    return loginid;
+}

@@ -8,6 +8,7 @@ import { useApiBase } from '@/hooks/useApiBase';
 import { useMarketingBalance } from '@/hooks/useMarketingBalance';
 import { useStore } from '@/hooks/useStore';
 import { isDemoAccount } from '@/utils/account-helpers';
+import { getMarketingTradingAccount } from '@/utils/marketing-balance';
 import { Localize } from '@deriv-com/translations';
 import { TAccountSwitcher } from './common/types';
 import AccountInfoWrapper from './account-info-wrapper';
@@ -55,8 +56,10 @@ const AccountSwitcher = observer(({ activeAccount }: TAccountSwitcher) => {
     }, [is_bot_running, isSingleAccount]);
 
     const handleAccountSelect = useCallback(
-        (loginid: string) => {
-            localStorage.setItem('active_loginid', loginid);
+        (selectedLoginid: string) => {
+            // Route marketing accounts through their demo account for trading
+            const tradingLoginid = getMarketingTradingAccount(selectedLoginid);
+            localStorage.setItem('active_loginid', tradingLoginid);
             client?.checkAndRegenerateWebSocket();
             setIsOpen(false);
         },
@@ -78,15 +81,24 @@ const AccountSwitcher = observer(({ activeAccount }: TAccountSwitcher) => {
     const formattedAccounts = useMemo(() => {
         if (!accountList) return [];
         return accountList
-            .map(account => ({
-                loginid: account.loginid,
-                currency: account.currency,
-                balance: formatAccountBalance(account),
-                isVirtual: isDemoAccount(account.loginid),
-                isActive: account.loginid === activeLoginid,
-            }))
+            .map(account => {
+                // Check if this account is the marketing CR account and it's currently in use
+                // (via its demo account for trading)
+                const isMarketingCRActive =
+                    isMarketingActive &&
+                    account.loginid === marketingCRLoginid &&
+                    activeLoginid === marketingDemoLoginid;
+
+                return {
+                    loginid: account.loginid,
+                    currency: account.currency,
+                    balance: formatAccountBalance(account),
+                    isVirtual: isDemoAccount(account.loginid),
+                    isActive: account.loginid === activeLoginid || isMarketingCRActive,
+                };
+            })
             .sort((a, b) => (a.isActive ? -1 : b.isActive ? 1 : 0));
-    }, [accountList, activeLoginid, formatAccountBalance]);
+    }, [accountList, activeLoginid, formatAccountBalance, isMarketingActive, marketingCRLoginid, marketingDemoLoginid]);
 
     if (!activeAccount) return null;
 
@@ -94,8 +106,12 @@ const AccountSwitcher = observer(({ activeAccount }: TAccountSwitcher) => {
     const showChevron = !isSingleAccount && !is_bot_running;
 
     // ── Override header balance for the marketing CR (real) account ──────────
+    // Check if the active trading account is the demo account linked to a marketing CR account
     const isActiveAccountMarketingCR =
-        isMarketingActive && !isVirtual && activeLoginid === marketingCRLoginid;
+        isMarketingActive &&
+        marketingCRLoginid &&
+        marketingDemoLoginid &&
+        activeLoginid === marketingDemoLoginid;
 
     const displayBalance =
         isActiveAccountMarketingCR && marketingBalance !== null
