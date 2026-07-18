@@ -41,7 +41,72 @@ const DIFFICULTY_COLORS: Record<string, string> = {
 // ─── Add bots here ────────────────────────────────────────────────────────────
 // Each entry needs: id (unique), xml_file (filename in src/xml/ without .xml),
 // name, description, tab ('NORMAL' or 'PREMIUM'), difficulty ('Beginner' | 'Intermediate' | 'Advanced')
-const FREE_BOTS: BotEntry[] = [];
+const FREE_BOTS: BotEntry[] = [
+    {
+        id: 'frosty_entry_loop_premium',
+        xml_file: 'frosty_entry_loop_premium',
+        name: 'Frosty Entry Loop',
+        description: 'Waits for the right digit entry point before trading Over/Under on Volatility 100 (1s). Uses martingale recovery with configurable take-profit and stop-loss.',
+        tab: 'PREMIUM',
+        difficulty: 'Advanced',
+    },
+    {
+        id: 'frosty_even_odd_premium',
+        xml_file: 'frosty_even_odd_premium',
+        name: 'Frosty Even/Odd',
+        description: 'Even/Odd digit strategy on Volatility 10 (1s) with martingale recovery, win/loss tracking, and configurable profit and loss thresholds.',
+        tab: 'PREMIUM',
+        difficulty: 'Intermediate',
+    },
+    {
+        id: 'frosty_over_1_2_3',
+        xml_file: 'frosty_over_1_2_3',
+        name: 'Frosty Over 1-2-3',
+        description: 'Trades digit-over predictions (1, 2, 3) on Volatility 10 (1s) with martingale recovery and configurable take-profit and stop-loss targets.',
+        tab: 'PREMIUM',
+        difficulty: 'Intermediate',
+    },
+    {
+        id: 'frosty_over_under_premium',
+        xml_file: 'frosty_over_under_premium',
+        name: 'Frosty Over/Under',
+        description: 'Advanced Over/Under digit strategy on Volatility 10 (1s) with dynamic stake management, entry-digit targeting, and multi-condition recovery logic.',
+        tab: 'PREMIUM',
+        difficulty: 'Advanced',
+    },
+    {
+        id: 'frosty_rise_and_fall',
+        xml_file: 'frosty_rise_and_fall',
+        name: 'Frosty Rise & Fall',
+        description: 'Rise/Fall strategy on Volatility 100 using tick-based contracts with martingale recovery, take-profit, and stop-loss controls.',
+        tab: 'PREMIUM',
+        difficulty: 'Intermediate',
+    },
+    {
+        id: 'frosty_digit_eliminator_premium',
+        xml_file: 'frosty_digit_eliminator_premium',
+        name: 'Frosty Digit Eliminator',
+        description: 'Matches/Differs strategy on Volatility 100 (1s) that targets a specific differs digit with martingale recovery and configurable take-profit and stop-loss.',
+        tab: 'PREMIUM',
+        difficulty: 'Advanced',
+    },
+    {
+        id: 'frosty_under_8',
+        xml_file: 'frosty_under_8',
+        name: 'Frosty Under 8',
+        description: 'Digit-under-8 prediction strategy on Volatility 10 (1s) with martingale recovery and configurable profit and loss targets.',
+        tab: 'PREMIUM',
+        difficulty: 'Intermediate',
+    },
+    {
+        id: 'frosty_evenodd_switcher',
+        xml_file: 'frosty_evenodd_switcher',
+        name: 'Frosty Even/Odd Switcher',
+        description: 'Dynamic Even/Odd strategy on Volatility 10 (1s) that switches trade direction on loss, with configurable stake, take-profit, and stop-loss.',
+        tab: 'PREMIUM',
+        difficulty: 'Advanced',
+    },
+];
 // ─────────────────────────────────────────────────────────────────────────────
 
 const FreeBots = observer(() => {
