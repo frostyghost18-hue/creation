@@ -1,27 +1,23 @@
-// ─── Gold palette ──────────────────────────────────────────────────────────────
-// $gold-bright : #fbbf24   amber-400
-// $gold-base   : #f59e0b   amber-500
-// $gold-deep   : #d97706   amber-600
-// $gold-dark   : #92400e   amber-800
-// $gold-glow   : rgba(245,158,11,0.55)
+// ─── Blue/Cyan palette (normal-bot theme) ──────────────────────────────────────
+// $cyan-bright : #38bdf8   sky-400
+// $cyan-base   : #06b6d4   cyan-500
+// $blue-base   : #3b82f6   blue-500
+// $blue-deep   : #0369a1   blue-700
+// $navy-dark   : #001428
+// $navy-darker : #000d1f
 
 // ─── Trigger button ────────────────────────────────────────────────────────────
-
-// ── Wave rings that sit behind the button ─────────────────────────────────────
-// Three pseudo-elements aren't enough, so we use a wrapper div rendered in TSX
-// (.ai-scanner-trigger__waves) containing three span.wave elements.
 
 .ai-scanner-trigger {
     position: fixed;
     width: 5rem;
     height: 5rem;
     border-radius: 50%;
-    // Same dark gold-card theme used across the dashboard feature cards
-    border: 1.5px solid rgb(247 197 59 / 50%);
-    background: linear-gradient(150deg, #241c09 0%, #14100a 100%);
+    border: 1.5px solid rgb(6 182 212 / 55%);
+    background: linear-gradient(150deg, #001e3c 0%, #000d1f 100%);
     box-shadow:
-        0 4px 14px rgb(0 0 0 / 25%),
-        0 0 18px rgb(247 197 59 / 35%);
+        0 4px 14px rgb(0 0 0 / 30%),
+        0 0 18px rgb(6 182 212 / 35%);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -32,29 +28,27 @@
     overflow: hidden;
     animation:
         ai-bounce      1.8s cubic-bezier(0.36, 0.07, 0.19, 0.97) infinite,
-        gold-pulse-glow 2.6s ease-in-out infinite;
+        ai-cyan-pulse  2.6s ease-in-out infinite;
 
-    // Same diagonal shimmer sweep used on the feature-showcase cards
     &::before {
         content: '';
         position: absolute;
         inset: 0;
         border-radius: 50%;
-        background: linear-gradient(105deg, transparent 35%, rgb(255 235 150 / 25%) 50%, transparent 65%);
+        background: linear-gradient(105deg, transparent 35%, rgb(224 242 254 / 22%) 50%, transparent 65%);
         background-size: 220% 100%;
-        animation: gold-shimmer 2.8s ease-in-out infinite;
+        animation: ai-cyan-shimmer 2.8s ease-in-out infinite;
         z-index: 0;
         pointer-events: none;
     }
 
-    // Gloss highlight
     &::after {
         content: '';
         position: absolute;
         inset: 0;
         border-radius: 50%;
         background: linear-gradient(145deg,
-            rgba(247, 197, 59, 0.18) 0%,
+            rgba(6, 182, 212, 0.18) 0%,
             transparent 55%
         );
         z-index: 1;
@@ -70,28 +64,28 @@
         line-height: 1;
         pointer-events: none;
         user-select: none;
-        color: #fff8d6;
-        text-shadow: 0 0 8px rgb(247 197 59 / 60%);
+        color: #e0f2fe;
+        text-shadow: 0 0 8px rgb(6 182 212 / 70%);
         animation: ai-text-glow 2.2s ease-in-out infinite alternate;
     }
 
     &:active { cursor: grabbing; }
 
     &:hover {
-        border-color: rgb(255 220 110 / 90%);
+        border-color: rgb(56 189 248 / 90%);
         box-shadow:
             0 8px 28px rgb(0 0 0 / 45%),
-            0 0 30px rgb(247 197 59 / 65%),
-            0 0 54px rgb(247 197 59 / 30%);
-        animation-play-state: paused; // freeze bounce/pulse on hover for control
+            0 0 30px rgb(6 182 212 / 65%),
+            0 0 54px rgb(59 130 246 / 30%);
+        animation-play-state: paused;
     }
 
     &--active {
-        border-color: rgb(255 220 110 / 90%);
+        border-color: rgb(56 189 248 / 90%);
         box-shadow:
             0 8px 28px rgb(0 0 0 / 45%),
-            0 0 30px rgb(247 197 59 / 65%),
-            0 0 54px rgb(247 197 59 / 30%);
+            0 0 30px rgb(6 182 212 / 65%),
+            0 0 54px rgb(59 130 246 / 30%);
     }
 
     &__dot {
@@ -102,31 +96,29 @@
         height: 0.9rem;
         border-radius: 50%;
         background: radial-gradient(circle at 35% 35%, #6ee7b7, #10b981);
-        border: 2.5px solid #0f0a00;
+        border: 2.5px solid #000d1f;
         z-index: 3;
         animation: ai-dot-pulse 2.2s infinite;
     }
 
-    // ── Wave rings ────────────────────────────────────────────────────────────
     &__wave {
         position: absolute;
         inset: 0;
         border-radius: 50%;
-        border: 3px solid rgba(251, 191, 36, 0.85);
-        box-shadow: 0 0 16px 2px rgba(245, 158, 11, 0.55);
+        border: 3px solid rgba(6, 182, 212, 0.85);
+        box-shadow: 0 0 16px 2px rgba(59, 130, 246, 0.45);
         animation: ai-wave-out 2.4s cubic-bezier(0.2, 0.6, 0.4, 1) infinite;
         pointer-events: none;
         z-index: -1;
 
-        &:nth-child(1) { animation-delay: 0s;    border-color: rgba(255, 236, 168, 0.9); }
-        &:nth-child(2) { animation-delay: 0.8s;  border-color: rgba(251, 191, 36, 0.7);  }
-        &:nth-child(3) { animation-delay: 1.6s;  border-color: rgba(217, 119,  6, 0.55); }
+        &:nth-child(1) { animation-delay: 0s;    border-color: rgba(224, 242, 254, 0.9); }
+        &:nth-child(2) { animation-delay: 0.8s;  border-color: rgba(6, 182, 212, 0.7);  }
+        &:nth-child(3) { animation-delay: 1.6s;  border-color: rgba(59, 130, 246, 0.55); }
     }
 }
 
 // ── Animations ────────────────────────────────────────────────────────────────
 
-// Bouncy vertical bob
 @keyframes ai-bounce {
     0%, 100% { transform: translateY(0)     scale(1);    }
     18%       { transform: translateY(-9px)  scale(1.06); }
@@ -136,17 +128,34 @@
     82%       { transform: translateY(-3px)  scale(1.01); }
 }
 
-// Gold text glow pulse
-@keyframes ai-text-glow {
-    0%   { filter: drop-shadow(0 0 2px rgba(255, 249, 219, 0.5)); }
-    100% { filter: drop-shadow(0 0 10px rgba(255, 214, 100, 1)); }
+@keyframes ai-cyan-pulse {
+    0%, 100% {
+        box-shadow:
+            0 4px 14px rgb(0 0 0 / 30%),
+            0 0 18px rgb(6 182 212 / 35%);
+    }
+    50% {
+        box-shadow:
+            0 4px 14px rgb(0 0 0 / 30%),
+            0 0 32px rgb(6 182 212 / 70%),
+            0 0 54px rgb(59 130 246 / 30%);
+    }
 }
 
-// Wave rings expand outward and fade
+@keyframes ai-cyan-shimmer {
+    0%   { background-position: -200% center; }
+    100% { background-position:  200% center; }
+}
+
+@keyframes ai-text-glow {
+    0%   { filter: drop-shadow(0 0 2px rgba(224, 242, 254, 0.5)); }
+    100% { filter: drop-shadow(0 0 10px rgba(6, 182, 212, 1)); }
+}
+
 @keyframes ai-wave-out {
-    0%   { transform: scale(1);    opacity: 1;   }
+    0%   { transform: scale(1);    opacity: 1;    }
     70%  { transform: scale(2.1);  opacity: 0.25; }
-    100% { transform: scale(2.6);  opacity: 0;   }
+    100% { transform: scale(2.6);  opacity: 0;    }
 }
 
 @keyframes ai-dot-pulse {
@@ -182,14 +191,14 @@
     max-height: calc(100vh - 10rem);
     display: flex;
     flex-direction: column;
-    background: linear-gradient(160deg, #1a1200 0%, #0f0c00 40%, #1a1200 100%);
-    border: 1.5px solid rgba(245, 158, 11, 0.55);
+    background: linear-gradient(160deg, #001e3c 0%, #000d1f 40%, #001428 100%);
+    border: 1.5px solid rgba(6, 182, 212, 0.45);
     border-radius: 1.4rem;
     box-shadow:
-        0 0 0 1px rgba(251, 191, 36, 0.12),
-        0 0 32px rgba(245, 158, 11, 0.25),
+        0 0 0 1px rgba(59, 130, 246, 0.12),
+        0 0 32px rgba(6, 182, 212, 0.2),
         0 24px 64px rgba(0, 0, 0, 0.65),
-        inset 0 1px 0 rgba(253, 230, 138, 0.12);
+        inset 0 1px 0 rgba(224, 242, 254, 0.08);
     overflow: hidden;
     animation: ai-slide-up 0.24s cubic-bezier(0.34, 1.56, 0.64, 1);
 
@@ -201,14 +210,13 @@
         justify-content: space-between;
         padding: 1.4rem 1.6rem 1.1rem;
         background: linear-gradient(135deg,
-            rgba(245, 158, 11, 0.18) 0%,
-            rgba(217, 119, 6, 0.08) 100%
+            rgba(6, 182, 212, 0.15) 0%,
+            rgba(59, 130, 246, 0.06) 100%
         );
-        border-bottom: 1px solid rgba(245, 158, 11, 0.25);
+        border-bottom: 1px solid rgba(6, 182, 212, 0.2);
         position: relative;
         overflow: hidden;
 
-        // Shimmer sweep
         &::after {
             content: '';
             position: absolute;
@@ -217,7 +225,7 @@
             background: linear-gradient(
                 90deg,
                 transparent 0%,
-                rgba(253, 230, 138, 0.08) 50%,
+                rgba(224, 242, 254, 0.06) 50%,
                 transparent 100%
             );
             animation: ai-header-shimmer 3.5s ease-in-out infinite;
@@ -229,12 +237,12 @@
             font-weight: 800;
             margin: 0;
             letter-spacing: 0.01em;
-            background: linear-gradient(180deg, #fde68a 0%, #f59e0b 55%, #d97706 100%);
+            background: linear-gradient(180deg, #e0f2fe 0%, #38bdf8 55%, #0369a1 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
             text-shadow: none;
-            filter: drop-shadow(0 1px 6px rgba(245,158,11,0.45));
+            filter: drop-shadow(0 1px 6px rgba(6, 182, 212, 0.45));
         }
     }
 
@@ -248,20 +256,20 @@
         width: 2.8rem;
         height: 2.8rem;
         border-radius: 50%;
-        border: 1.5px solid rgba(245, 158, 11, 0.35);
-        background: rgba(245, 158, 11, 0.08);
+        border: 1.5px solid rgba(6, 182, 212, 0.35);
+        background: rgba(6, 182, 212, 0.08);
         display: flex;
         align-items: center;
         justify-content: center;
         cursor: pointer;
-        color: #d97706;
+        color: #06b6d4;
         font-size: 1.2rem;
         transition: background 0.15s, color 0.15s, border-color 0.15s;
 
         &:hover {
-            background: rgba(245, 158, 11, 0.2);
-            color: #fbbf24;
-            border-color: rgba(245, 158, 11, 0.65);
+            background: rgba(6, 182, 212, 0.2);
+            color: #38bdf8;
+            border-color: rgba(6, 182, 212, 0.65);
         }
     }
 
@@ -271,7 +279,7 @@
         display: flex;
         gap: 0;
         padding: 0.8rem 1.6rem 0;
-        background: rgba(245, 158, 11, 0.03);
+        background: rgba(6, 182, 212, 0.03);
     }
 
     &__mode-btn {
@@ -280,9 +288,9 @@
         font-size: 1.15rem;
         font-weight: 700;
         cursor: pointer;
-        border: 1.5px solid rgba(245, 158, 11, 0.22);
+        border: 1.5px solid rgba(6, 182, 212, 0.22);
         background: transparent;
-        color: rgba(245, 158, 11, 0.45);
+        color: rgba(6, 182, 212, 0.45);
         transition: all 0.15s;
 
         &:first-child {
@@ -296,26 +304,25 @@
         }
 
         &:hover:not(:disabled) {
-            background: rgba(245, 158, 11, 0.08);
-            color: #f59e0b;
-            border-color: rgba(245, 158, 11, 0.5);
+            background: rgba(6, 182, 212, 0.08);
+            color: #06b6d4;
+            border-color: rgba(6, 182, 212, 0.5);
         }
 
         &:disabled { opacity: 0.4; cursor: not-allowed; }
 
         &--active {
-            background: linear-gradient(135deg, #d97706 0%, #f59e0b 50%, #fbbf24 100%);
+            background: linear-gradient(135deg, #0369a1 0%, #0284c7 50%, #06b6d4 100%);
             border-color: transparent;
-            color: #1a1200;
-            box-shadow: 0 2px 10px rgba(245, 158, 11, 0.35);
+            color: #e0f2fe;
+            box-shadow: 0 2px 10px rgba(6, 182, 212, 0.35);
 
             &:hover:not(:disabled) {
-                background: linear-gradient(135deg, #b45309 0%, #d97706 50%, #f59e0b 100%);
-                color: #1a1200;
+                background: linear-gradient(135deg, #025f94 0%, #0369a1 50%, #0284c7 100%);
+                color: #f0f9ff;
             }
         }
 
-        // Even/Odd active state — green tint to distinguish it visually
         &--evenodd#{&}--active {
             background: linear-gradient(135deg, #059669 0%, #10b981 50%, #34d399 100%);
             color: #fff;
@@ -331,19 +338,19 @@
 
     &__description {
         font-size: 1.1rem;
-        color: rgba(245, 158, 11, 0.55);
+        color: rgba(6, 182, 212, 0.55);
         padding: 0.75rem 1.6rem;
-        background: rgba(245, 158, 11, 0.04);
-        border-bottom: 1px solid rgba(245, 158, 11, 0.12);
+        background: rgba(6, 182, 212, 0.04);
+        border-bottom: 1px solid rgba(6, 182, 212, 0.12);
         line-height: 1.5;
 
         strong {
-            color: rgba(245, 158, 11, 0.85);
+            color: rgba(6, 182, 212, 0.85);
             font-weight: 700;
         }
     }
 
-    // ── Source badge (1s / standard) ─────────────────────────────────────────
+    // ── Source badge ─────────────────────────────────────────────────────────
 
     &__source-badge {
         display: inline-block;
@@ -356,8 +363,8 @@
         text-transform: none;
         vertical-align: middle;
         background: rgba(255, 255, 255, 0.07);
-        border: 1px solid rgba(245, 158, 11, 0.25);
-        color: rgba(245, 158, 11, 0.6);
+        border: 1px solid rgba(6, 182, 212, 0.25);
+        color: rgba(6, 182, 212, 0.65);
 
         &--1s {
             background: rgba(110, 231, 183, 0.12);
@@ -370,9 +377,9 @@
     // ── Best-signal card ─────────────────────────────────────────────────────
 
     &__best-card {
-        border: 1.5px solid rgba(245, 158, 11, 0.15);
+        border: 1.5px solid rgba(6, 182, 212, 0.15);
         border-radius: 0.9rem;
-        background: rgba(245, 158, 11, 0.03);
+        background: rgba(6, 182, 212, 0.03);
         padding: 0.9rem 1rem;
         margin-bottom: 1rem;
         display: flex;
@@ -381,9 +388,9 @@
         transition: border-color 0.2s, box-shadow 0.2s;
 
         &--active {
-            border-color: rgba(245, 158, 11, 0.45);
-            background: rgba(245, 158, 11, 0.06);
-            box-shadow: 0 0 18px rgba(245, 158, 11, 0.1), inset 0 1px 0 rgba(253,230,138,0.07);
+            border-color: rgba(6, 182, 212, 0.45);
+            background: rgba(6, 182, 212, 0.06);
+            box-shadow: 0 0 18px rgba(6, 182, 212, 0.1), inset 0 1px 0 rgba(224, 242, 254, 0.06);
         }
     }
 
@@ -392,7 +399,6 @@
         grid-template-columns: 1fr 1fr;
         gap: 0.7rem;
 
-        // Single-field rows stretch full width
         &:only-child,
         > .ai-scanner-modal__field:only-child {
             grid-column: 1 / -1;
@@ -422,7 +428,7 @@
         padding: 1rem 1.6rem 0;
         overflow-x: auto;
         scrollbar-width: none;
-        background: rgba(245, 158, 11, 0.03);
+        background: rgba(6, 182, 212, 0.03);
 
         &::-webkit-scrollbar { display: none; }
     }
@@ -430,31 +436,31 @@
     &__tab {
         padding: 0.5rem 1.2rem;
         border-radius: 2rem;
-        border: 1.5px solid rgba(245, 158, 11, 0.22);
+        border: 1.5px solid rgba(6, 182, 212, 0.22);
         background: transparent;
         font-size: 1.15rem;
         font-weight: 600;
-        color: rgba(245, 158, 11, 0.55);
+        color: rgba(6, 182, 212, 0.55);
         cursor: pointer;
         white-space: nowrap;
         transition: all 0.15s;
 
         &:hover {
-            border-color: rgba(245, 158, 11, 0.6);
-            color: #f59e0b;
-            background: rgba(245, 158, 11, 0.08);
+            border-color: rgba(6, 182, 212, 0.6);
+            color: #06b6d4;
+            background: rgba(6, 182, 212, 0.08);
         }
 
         &--active {
-            background: linear-gradient(135deg, #d97706 0%, #f59e0b 50%, #fbbf24 100%);
+            background: linear-gradient(135deg, #0369a1 0%, #0284c7 50%, #06b6d4 100%);
             border-color: transparent;
-            color: #1a1200;
+            color: #e0f2fe;
             font-weight: 800;
-            box-shadow: 0 2px 10px rgba(245, 158, 11, 0.45);
+            box-shadow: 0 2px 10px rgba(6, 182, 212, 0.45);
 
             &:hover {
-                background: linear-gradient(135deg, #b45309 0%, #d97706 50%, #f59e0b 100%);
-                color: #1a1200;
+                background: linear-gradient(135deg, #025f94 0%, #0369a1 50%, #0284c7 100%);
+                color: #f0f9ff;
             }
         }
     }
@@ -466,12 +472,12 @@
         overflow-y: auto;
         flex: 1;
         scrollbar-width: thin;
-        scrollbar-color: rgba(245, 158, 11, 0.3) transparent;
+        scrollbar-color: rgba(6, 182, 212, 0.3) transparent;
 
         &::-webkit-scrollbar { width: 4px; }
         &::-webkit-scrollbar-track { background: transparent; }
         &::-webkit-scrollbar-thumb {
-            background: rgba(245, 158, 11, 0.3);
+            background: rgba(6, 182, 212, 0.3);
             border-radius: 2px;
         }
     }
@@ -490,7 +496,7 @@
         h4 {
             font-size: 1.35rem;
             font-weight: 700;
-            background: linear-gradient(135deg, #fde68a, #f59e0b);
+            background: linear-gradient(135deg, #e0f2fe, #06b6d4);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -499,7 +505,7 @@
 
         p {
             font-size: 1.15rem;
-            color: rgba(245, 158, 11, 0.6);
+            color: rgba(6, 182, 212, 0.6);
             margin: 0;
             line-height: 1.45;
         }
@@ -517,7 +523,7 @@
             font-weight: 700;
             letter-spacing: 0.08em;
             text-transform: uppercase;
-            color: rgba(245, 158, 11, 0.5);
+            color: rgba(6, 182, 212, 0.5);
         }
 
         input {
@@ -526,16 +532,16 @@
             text-align: center;
             font-size: 1.35rem;
             font-weight: 700;
-            border: 1.5px solid rgba(245, 158, 11, 0.28);
+            border: 1.5px solid rgba(6, 182, 212, 0.28);
             border-radius: 0.6rem;
-            background: rgba(245, 158, 11, 0.06);
-            color: #fbbf24;
+            background: rgba(6, 182, 212, 0.06);
+            color: #38bdf8;
             outline: none;
             transition: border-color 0.15s, box-shadow 0.15s;
 
             &:focus {
-                border-color: rgba(245, 158, 11, 0.7);
-                box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.12);
+                border-color: rgba(6, 182, 212, 0.7);
+                box-shadow: 0 0 0 3px rgba(6, 182, 212, 0.12);
             }
 
             &::-webkit-inner-spin-button,
@@ -552,12 +558,12 @@
         font-weight: 800;
         letter-spacing: 0.12em;
         text-transform: uppercase;
-        color: #d97706;
+        color: #06b6d4;
         margin-bottom: 0.6rem;
         margin-top: 0.2rem;
         padding-bottom: 0.4rem;
-        border-bottom: 1px solid rgba(245, 158, 11, 0.2);
-        text-shadow: 0 0 10px rgba(245, 158, 11, 0.35);
+        border-bottom: 1px solid rgba(6, 182, 212, 0.2);
+        text-shadow: 0 0 10px rgba(6, 182, 212, 0.35);
     }
 
     // ── Editable bot parameters ───────────────────────────────────────────────
@@ -579,7 +585,7 @@
             font-weight: 700;
             letter-spacing: 0.08em;
             text-transform: uppercase;
-            color: rgba(245, 158, 11, 0.5);
+            color: rgba(6, 182, 212, 0.5);
         }
 
         input {
@@ -587,17 +593,17 @@
             padding: 0.55rem 0.8rem;
             font-size: 1.25rem;
             font-weight: 700;
-            border: 1.5px solid rgba(245, 158, 11, 0.22);
+            border: 1.5px solid rgba(6, 182, 212, 0.22);
             border-radius: 0.6rem;
-            background: rgba(245, 158, 11, 0.05);
-            color: #fbbf24;
+            background: rgba(6, 182, 212, 0.05);
+            color: #38bdf8;
             outline: none;
             box-sizing: border-box;
             transition: border-color 0.15s, box-shadow 0.15s;
 
             &:focus {
-                border-color: rgba(245, 158, 11, 0.65);
-                box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.1);
+                border-color: rgba(6, 182, 212, 0.65);
+                box-shadow: 0 0 0 3px rgba(6, 182, 212, 0.1);
             }
 
             &::-webkit-inner-spin-button,
@@ -626,30 +632,29 @@
             font-weight: 700;
             letter-spacing: 0.08em;
             text-transform: uppercase;
-            color: rgba(245, 158, 11, 0.5);
+            color: rgba(6, 182, 212, 0.5);
         }
 
         span {
             display: block;
             padding: 0.6rem 0.9rem;
-            background: rgba(245, 158, 11, 0.04);
-            border: 1.5px solid rgba(245, 158, 11, 0.15);
+            background: rgba(6, 182, 212, 0.04);
+            border: 1.5px solid rgba(6, 182, 212, 0.15);
             border-radius: 0.6rem;
             font-size: 1.1rem;
-            color: rgba(245, 158, 11, 0.45);
+            color: rgba(6, 182, 212, 0.45);
             font-weight: 500;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
 
-            // Lit-up gold when the AI has filled a value
             &.ai-scanner-modal__field-value--ai {
-                color: #fbbf24;
-                border-color: rgba(245, 158, 11, 0.5);
-                background: rgba(245, 158, 11, 0.1);
+                color: #38bdf8;
+                border-color: rgba(6, 182, 212, 0.5);
+                background: rgba(6, 182, 212, 0.1);
                 font-weight: 800;
-                box-shadow: 0 0 8px rgba(245, 158, 11, 0.15), inset 0 1px 0 rgba(253,230,138,0.1);
-                text-shadow: 0 0 10px rgba(245, 158, 11, 0.4);
+                box-shadow: 0 0 8px rgba(6, 182, 212, 0.15), inset 0 1px 0 rgba(224, 242, 254, 0.08);
+                text-shadow: 0 0 10px rgba(6, 182, 212, 0.45);
             }
         }
     }
@@ -659,21 +664,21 @@
     &__progress {
         height: 0.35rem;
         border-radius: 0.35rem;
-        background: rgba(245, 158, 11, 0.1);
+        background: rgba(6, 182, 212, 0.1);
         margin-bottom: 0.8rem;
         overflow: hidden;
 
         &-bar {
             height: 100%;
-            background: linear-gradient(90deg, #d97706, #fbbf24, #fde68a, #f59e0b);
+            background: linear-gradient(90deg, #0369a1, #0284c7, #06b6d4, #38bdf8);
             background-size: 200% 100%;
             border-radius: 0.35rem;
             transition: width 0.3s ease;
-            animation: ai-gold-flow 1.8s linear infinite;
+            animation: ai-cyan-flow 1.8s linear infinite;
         }
     }
 
-    @keyframes ai-gold-flow {
+    @keyframes ai-cyan-flow {
         0%   { background-position: 0%   50%; }
         100% { background-position: 200% 50%; }
     }
@@ -682,10 +687,10 @@
 
     &__status {
         font-size: 1.15rem;
-        color: rgba(245, 158, 11, 0.6);
+        color: rgba(6, 182, 212, 0.6);
         padding: 0.7rem 0.9rem;
-        background: rgba(245, 158, 11, 0.05);
-        border: 1px solid rgba(245, 158, 11, 0.15);
+        background: rgba(6, 182, 212, 0.05);
+        border: 1px solid rgba(6, 182, 212, 0.15);
         border-radius: 0.6rem;
         margin-bottom: 1rem;
         min-height: 3.4rem;
@@ -693,7 +698,7 @@
         align-items: center;
         gap: 0.6rem;
 
-        &--scanning { color: #f59e0b; }
+        &--scanning { color: #06b6d4; }
         &--done     { color: #6ee7b7; }
         &--error    { color: #f87171; }
     }
@@ -704,13 +709,13 @@
         margin-bottom: 1rem;
         max-height: 11rem;
         overflow-y: auto;
-        border: 1px solid rgba(245, 158, 11, 0.2);
+        border: 1px solid rgba(6, 182, 212, 0.2);
         border-radius: 0.8rem;
         background: rgba(0, 0, 0, 0.25);
 
         &::-webkit-scrollbar { width: 4px; }
         &::-webkit-scrollbar-thumb {
-            background: rgba(245, 158, 11, 0.3);
+            background: rgba(6, 182, 212, 0.3);
             border-radius: 2px;
         }
     }
@@ -720,30 +725,30 @@
         align-items: center;
         padding: 0.65rem 1rem;
         gap: 0.8rem;
-        border-bottom: 1px solid rgba(245, 158, 11, 0.08);
+        border-bottom: 1px solid rgba(6, 182, 212, 0.08);
         cursor: pointer;
         transition: background 0.12s;
 
         &:last-child { border-bottom: none; }
 
-        &:hover { background: rgba(245, 158, 11, 0.07); }
+        &:hover { background: rgba(6, 182, 212, 0.07); }
 
         &--best .ai-scanner-modal__result-pct {
-            color: #fbbf24;
+            color: #38bdf8;
             font-weight: 700;
-            text-shadow: 0 0 8px rgba(245,158,11,0.5);
+            text-shadow: 0 0 8px rgba(6, 182, 212, 0.5);
         }
 
         &--selected {
-            background: rgba(245, 158, 11, 0.09);
-            outline: 1px solid rgba(245, 158, 11, 0.3);
+            background: rgba(6, 182, 212, 0.09);
+            outline: 1px solid rgba(6, 182, 212, 0.3);
         }
     }
 
     &__result-rank {
         font-size: 0.95rem;
         font-weight: 700;
-        color: rgba(245, 158, 11, 0.4);
+        color: rgba(6, 182, 212, 0.4);
         width: 1.8rem;
         text-align: center;
         flex-shrink: 0;
@@ -752,16 +757,16 @@
     &__result-name {
         flex: 1;
         font-size: 1.15rem;
-        color: rgba(245, 158, 11, 0.85);
+        color: rgba(6, 182, 212, 0.85);
         font-weight: 500;
     }
 
     &__result-type {
         font-size: 1.05rem;
         font-weight: 700;
-        color: #d97706;
-        background: rgba(245, 158, 11, 0.12);
-        border: 1px solid rgba(245, 158, 11, 0.2);
+        color: #0284c7;
+        background: rgba(6, 182, 212, 0.12);
+        border: 1px solid rgba(6, 182, 212, 0.2);
         padding: 0.2rem 0.55rem;
         border-radius: 0.4rem;
         flex-shrink: 0;
@@ -769,7 +774,7 @@
 
     &__result-pct {
         font-size: 1.15rem;
-        color: rgba(245, 158, 11, 0.55);
+        color: rgba(6, 182, 212, 0.55);
         min-width: 4.2rem;
         text-align: right;
         flex-shrink: 0;
@@ -800,32 +805,41 @@
         width: 100%;
         letter-spacing: 0.01em;
 
-        // ── Scan Markets — full gold ─────────────────────────────────────────
+        // ── Scan Markets — full cyan shimmer ─────────────────────────────────
         &--scan {
-            background: linear-gradient(135deg, #d97706 0%, #f59e0b 40%, #fbbf24 70%, #d97706 100%);
-            background-size: 200% 100%;
-            color: #1a1200;
-            box-shadow: 0 2px 14px rgba(245, 158, 11, 0.45);
-            animation: ai-btn-gold-flow 2.5s linear infinite;
+            background: linear-gradient(
+                90deg,
+                #003060 0%,
+                #0369a1 20%,
+                #06b6d4 45%,
+                #7dd3fc 55%,
+                #06b6d4 70%,
+                #0369a1 85%,
+                #003060 100%
+            );
+            background-size: 200% auto;
+            color: #e0f2fe;
+            box-shadow: 0 2px 14px rgba(6, 182, 212, 0.4);
+            animation: ai-btn-cyan-flow 2.5s linear infinite;
 
             &:hover:not(:disabled) {
-                box-shadow: 0 4px 20px rgba(245, 158, 11, 0.65);
+                box-shadow: 0 4px 20px rgba(6, 182, 212, 0.65);
                 transform: translateY(-1px);
             }
             &:active:not(:disabled) { transform: scale(0.97); }
             &:disabled { opacity: 0.4; cursor: not-allowed; animation: none; }
         }
 
-        // ── Load Bot — outlined gold ─────────────────────────────────────────
+        // ── Load Bot — outlined cyan ─────────────────────────────────────────
         &--primary {
-            background: rgba(245, 158, 11, 0.1);
-            color: #f59e0b;
-            border: 1.5px solid rgba(245, 158, 11, 0.45);
+            background: rgba(6, 182, 212, 0.1);
+            color: #06b6d4;
+            border: 1.5px solid rgba(6, 182, 212, 0.45);
 
             &:hover:not(:disabled) {
-                background: rgba(245, 158, 11, 0.18);
-                border-color: rgba(245, 158, 11, 0.75);
-                box-shadow: 0 0 12px rgba(245, 158, 11, 0.2);
+                background: rgba(6, 182, 212, 0.18);
+                border-color: rgba(6, 182, 212, 0.75);
+                box-shadow: 0 0 12px rgba(6, 182, 212, 0.2);
             }
             &:active:not(:disabled) { transform: scale(0.97); }
             &:disabled { opacity: 0.35; cursor: not-allowed; }
@@ -834,18 +848,18 @@
         // ── Secondary (stop) ─────────────────────────────────────────────────
         &--secondary {
             background: rgba(255, 255, 255, 0.04);
-            color: rgba(245, 158, 11, 0.6);
-            border: 1.5px solid rgba(245, 158, 11, 0.18);
+            color: rgba(6, 182, 212, 0.6);
+            border: 1.5px solid rgba(6, 182, 212, 0.18);
 
             &:hover:not(:disabled) {
-                background: rgba(245, 158, 11, 0.08);
-                color: #f59e0b;
+                background: rgba(6, 182, 212, 0.08);
+                color: #06b6d4;
             }
             &:active:not(:disabled) { transform: scale(0.97); }
             &:disabled { opacity: 0.35; cursor: not-allowed; }
         }
 
-        // ── Load & Run — bright gold ─────────────────────────────────────────
+        // ── Load & Run — green (kept for semantic meaning) ───────────────────
         &--success {
             background: linear-gradient(135deg, #059669 0%, #10b981 50%, #34d399 100%);
             color: #fff;
@@ -861,7 +875,7 @@
         }
     }
 
-    @keyframes ai-btn-gold-flow {
+    @keyframes ai-btn-cyan-flow {
         0%   { background-position: 0%   50%; }
         100% { background-position: 200% 50%; }
     }
@@ -879,12 +893,12 @@
 .ai-scanner-spinner {
     width: 1.4rem;
     height: 1.4rem;
-    border: 2px solid rgba(245, 158, 11, 0.18);
-    border-top-color: #f59e0b;
+    border: 2px solid rgba(6, 182, 212, 0.18);
+    border-top-color: #06b6d4;
     border-radius: 50%;
     animation: ai-spin 0.7s linear infinite;
     flex-shrink: 0;
-    box-shadow: 0 0 6px rgba(245, 158, 11, 0.3);
+    box-shadow: 0 0 6px rgba(6, 182, 212, 0.3);
 }
 
 @keyframes ai-spin {
