@@ -311,8 +311,8 @@ const RunPanel = observer(() => {
         />
     );
 
-    const show_run_panel = [BOT_BUILDER, CHART].includes(active_tab) || active_tour;
-    if ((!show_run_panel && isDesktop) || active_tour === 'bot_builder') return null;
+    // Show the run panel on every tab so Run is always accessible
+    if (active_tour === 'bot_builder') return null;
 
     return (
         <>
