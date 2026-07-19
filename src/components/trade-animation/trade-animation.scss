@@ -234,67 +234,67 @@
 }
 
 /* ============================================================
-   GOLDEN FLASHY RUN / STOP BUTTON
+   NORMAL-BOT BLUE/CYAN RUN / STOP BUTTON
    ============================================================ */
 
-@keyframes gold-run-pulse {
+@keyframes blue-run-pulse {
     0%, 100% {
         box-shadow:
-            0 0 8px 2px rgb(247 197 59 / 50%),
-            0 0 24px 6px rgb(247 197 59 / 25%),
-            inset 0 1px 0 rgb(255 255 200 / 30%);
+            0 0 8px 2px rgb(6 182 212 / 50%),
+            0 0 24px 6px rgb(59 130 246 / 25%),
+            inset 0 1px 0 rgb(224 242 254 / 30%);
     }
     50% {
         box-shadow:
-            0 0 16px 6px rgb(247 197 59 / 80%),
-            0 0 48px 16px rgb(247 197 59 / 35%),
-            inset 0 1px 0 rgb(255 255 200 / 30%);
+            0 0 16px 6px rgb(6 182 212 / 80%),
+            0 0 48px 16px rgb(59 130 246 / 35%),
+            inset 0 1px 0 rgb(224 242 254 / 30%);
     }
 }
 
-@keyframes gold-run-shimmer {
+@keyframes blue-run-shimmer {
     0%   { background-position: -200% center; }
     100% { background-position:  200% center; }
 }
 
-@keyframes gold-stop-pulse {
+@keyframes blue-stop-pulse {
     0%, 100% {
         box-shadow:
             0 0 8px 2px rgb(220 80 60 / 50%),
-            0 0 20px 4px rgb(247 197 59 / 20%),
-            inset 0 1px 0 rgb(255 180 100 / 25%);
+            0 0 20px 4px rgb(6 182 212 / 20%),
+            inset 0 1px 0 rgb(224 242 254 / 20%);
     }
     50% {
         box-shadow:
             0 0 16px 6px rgb(220 80 60 / 70%),
-            0 0 36px 10px rgb(247 197 59 / 30%),
-            inset 0 1px 0 rgb(255 180 100 / 25%);
+            0 0 36px 10px rgb(6 182 212 / 28%),
+            inset 0 1px 0 rgb(224 242 254 / 20%);
     }
 }
 
 .animation__run-button {
     background: linear-gradient(
         90deg,
-        #7a5200 0%,
-        #c9922a 20%,
-        #f7c53b 45%,
-        #ffe680 55%,
-        #f7c53b 70%,
-        #c9922a 85%,
-        #7a5200 100%
+        #003060 0%,
+        #0369a1 20%,
+        #06b6d4 45%,
+        #7dd3fc 55%,
+        #06b6d4 70%,
+        #0369a1 85%,
+        #003060 100%
     ) !important;
     background-size: 200% auto !important;
-    animation: gold-run-shimmer 2.5s linear infinite, gold-run-pulse 2s ease-in-out infinite !important;
+    animation: blue-run-shimmer 2.5s linear infinite, blue-run-pulse 2s ease-in-out infinite !important;
     border: none !important;
     border-radius: 4px 0 0 4px !important;
-    color: #1a0e00 !important;
+    color: #e0f2fe !important;
     font-weight: 800 !important;
-    text-shadow: 0 1px 2px rgb(255 220 80 / 40%);
+    text-shadow: 0 1px 2px rgb(6 182 212 / 40%);
     position: relative;
     overflow: hidden;
 
     /* icon tint */
-    svg path { fill: #1a0e00 !important; }
+    svg path { fill: #e0f2fe !important; }
 
     /* sweep sheen overlay */
     &::after {
@@ -304,27 +304,27 @@
         background: linear-gradient(
             105deg,
             transparent 35%,
-            rgb(255 255 220 / 35%) 50%,
+            rgb(224 242 254 / 30%) 50%,
             transparent 65%
         );
         background-size: 200% 100%;
-        animation: gold-run-shimmer 2s ease-in-out infinite;
+        animation: blue-run-shimmer 2s ease-in-out infinite;
         pointer-events: none;
     }
 
     &:hover {
         background: linear-gradient(
             90deg,
-            #9a6800 0%,
-            #e8b030 20%,
-            #ffe050 45%,
-            #fff4a0 55%,
-            #ffe050 70%,
-            #e8b030 85%,
-            #9a6800 100%
+            #004080 0%,
+            #0284c7 20%,
+            #22d3ee 45%,
+            #a5f3fc 55%,
+            #22d3ee 70%,
+            #0284c7 85%,
+            #004080 100%
         ) !important;
         background-size: 200% auto !important;
-        color: #0a0500 !important;
+        color: #f0f9ff !important;
         transform: scale(1.04);
         transition: transform 0.15s ease;
     }
@@ -333,14 +333,14 @@
     &[disabled] {
         background: linear-gradient(
             90deg,
-            #3a2800 0%,
-            #5a4010 50%,
-            #3a2800 100%
+            #001428 0%,
+            #002040 50%,
+            #001428 100%
         ) !important;
         animation: none !important;
         box-shadow: none !important;
         opacity: 0.5;
-        color: rgb(247 197 59 / 50%) !important;
+        color: rgb(56 189 248 / 50%) !important;
     }
 }
 
@@ -352,8 +352,8 @@
         #e74c3c 60%,
         #c0392b 100%
     ) !important;
-    animation: gold-stop-pulse 1.8s ease-in-out infinite !important;
-    border: 1.5px solid rgb(247 197 59 / 40%) !important;
+    animation: blue-stop-pulse 1.8s ease-in-out infinite !important;
+    border: 1.5px solid rgb(6 182 212 / 40%) !important;
     border-radius: 4px 0 0 4px !important;
     color: #fff !important;
     font-weight: 800 !important;
@@ -369,11 +369,11 @@
         background: linear-gradient(
             105deg,
             transparent 35%,
-            rgb(247 197 59 / 20%) 50%,
+            rgb(6 182 212 / 18%) 50%,
             transparent 65%
         );
         background-size: 200% 100%;
-        animation: gold-run-shimmer 2.5s ease-in-out infinite;
+        animation: blue-run-shimmer 2.5s ease-in-out infinite;
         pointer-events: none;
     }
 
