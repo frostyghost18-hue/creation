@@ -8,6 +8,14 @@ body {
     background: var(--general-main-1);
 }
 
+// ── FrostyDBot Fusion Light Theme — body-level canvas ─────────────────────────
+// Subtle 3-stop gradient: warm ivory (gold) → near-white → cool periwinkle (cyan)
+// Gives the whole page a premium-meets-tech feel without competing with content.
+body.theme--light {
+    background: linear-gradient(145deg, #fffef2 0%, #fefefe 45%, #f0f4ff 100%) !important;
+    background-attachment: fixed !important;
+}
+
 .icon-general-fill-path {
     path {
         fill: var(--text-general);

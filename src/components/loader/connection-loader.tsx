@@ -102,7 +102,7 @@ const ConnectionLoader = () => {
                         </div>
                     ))}
 
-                    {/* ── mid orbit — forex pairs ── */}
+                    {/* ── mid orbit — forex pairs (cyan accent track) ── */}
                     {MID_ORBIT.map((pair, i) => (
                         <div
                             key={pair}
@@ -112,7 +112,7 @@ const ConnectionLoader = () => {
                                 '--dur': '14s',
                             } as React.CSSProperties}
                         >
-                            <span className='conn-loader__sat-icon conn-loader__sat-icon--pair'>
+                            <span className='conn-loader__sat-icon conn-loader__sat-icon--pair conn-loader__sat-icon--pair-cyan'>
                                 {pair}
                             </span>
                         </div>
