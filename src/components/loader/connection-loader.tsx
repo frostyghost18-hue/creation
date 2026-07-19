@@ -19,9 +19,9 @@ const OUTER_ORBIT = ['↗', '₿', '📈', '↘', '⚡'];
 // ── Mini candlestick SVG ─────────────────────────────────────────────────────
 const BullCandle = () => (
     <svg width='14' height='18' viewBox='0 0 14 18' fill='none'>
-        <line x1='7' y1='0' x2='7' y2='3' stroke='#f7c53b' strokeWidth='1.5' strokeLinecap='round' />
-        <rect x='3' y='3' width='8' height='10' rx='1' fill='#f7c53b' />
-        <line x1='7' y1='13' x2='7' y2='18' stroke='#f7c53b' strokeWidth='1.5' strokeLinecap='round' />
+        <line x1='7' y1='0' x2='7' y2='3' stroke='#06b6d4' strokeWidth='1.5' strokeLinecap='round' />
+        <rect x='3' y='3' width='8' height='10' rx='1' fill='#06b6d4' />
+        <line x1='7' y1='13' x2='7' y2='18' stroke='#06b6d4' strokeWidth='1.5' strokeLinecap='round' />
     </svg>
 );
 
