@@ -7,11 +7,16 @@
         transform: unset;
         opacity: unset;
         transition: unset;
+        justify-content: flex-start;
 
         @include mobile-screen {
             width: 90vw;
             padding: 1.6rem;
         }
+    }
+
+    .dc-dialog__footer {
+        margin-top: auto;
     }
 
     .dc-dialog__content {
