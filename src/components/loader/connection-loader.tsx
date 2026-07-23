@@ -50,7 +50,10 @@ const ConnectionLoader = () => {
             {/* ── full-screen ambient glow ── */}
             <div className='conn-loader__bg-glow' aria-hidden='true' />
 
-            {/* ── rising gold particles ── */}
+            {/* ── lightning bolts ── */}
+            <div className='conn-loader__lightning' aria-hidden='true' />
+
+            {/* ── rising particles ── */}
             <div className='conn-loader__particles' aria-hidden='true'>
                 {Array.from({ length: 22 }).map((_, i) => (
                     <span
@@ -136,7 +139,7 @@ const ConnectionLoader = () => {
                 </div>
 
                 {/* ── brand tagline ── */}
-                <p className='conn-loader__brand'>TRADE SMART. TRADE FROSTY.</p>
+                <p className='conn-loader__brand'>TRADE. INVEST. PROFIT.</p>
 
                 {/* ── animated status text ── */}
                 <p key={step} className='conn-loader__status'>
