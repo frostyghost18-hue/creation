@@ -130,6 +130,14 @@ const FREE_BOTS: BotEntry[] = [
         tab: 'NORMAL',
         difficulty: 'Beginner',
     },
+    {
+        id: 'frosty_tick_scalper',
+        xml_file: 'frosty_tick_scalper',
+        name: 'Frosty Tick Scalper',
+        description: 'Trades Rise (CALL) on every single tick of Volatility 100 (1s). Doubles stake on loss (martingale ×2) and resets on win. Stops automatically when take-profit or stop-loss is hit.',
+        tab: 'NORMAL',
+        difficulty: 'Beginner',
+    },
 ];
 // ─────────────────────────────────────────────────────────────────────────────
 
