@@ -31,7 +31,7 @@ $dark-bg:      #020408;
         background-size: cover;
         background-position: center center;
         background-repeat: no-repeat;
-        filter: blur(18px) brightness(0.28) saturate(1.4);
+        filter: blur(6px) brightness(0.55) saturate(1.3);
         transform: scale(1.05); // prevent blur edge artifacts
         z-index: 0;
         pointer-events: none;
